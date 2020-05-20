@@ -11,7 +11,7 @@
 
 
 <!-- 图片显示 -->
-![Image text](/_images/1.jpg)
+![Image text](_images/1.jpg)
 
 
 
