@@ -1,15 +1,15 @@
 
 
-* [java](/java/)
+* [java](java/)
 
 
-* [redis](/redis/)
+* [redis](redis/)
 
 
 * mq
-  * [kafka](/mq/kafka/)
-  * [activemq](/mq/activemq/)
-  * [rabbit](/mq/rabbit/)
+  * [kafka](mq/kafka/)
+  * [activemq](mq/activemq/)
+  * [rabbit](mq/rabbit/)
   
   
-* [mysql](/mysql/)
+* [mysql](./mysql/)
