@@ -11,7 +11,7 @@
 
 
 <!-- 图片显示 -->
-![Image text](./_images/1.jpg)
+![Image text](http://ww3.sinaimg.cn/large/006tNc79ly1g59ibyxlyxj30c008mwey.jpg)
 
 
 
