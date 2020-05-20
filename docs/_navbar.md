@@ -12,4 +12,4 @@
   * [rabbit](mq/rabbit/)
   
   
-* [mysql](./mysql/)
+* [mysql](mysql/)
