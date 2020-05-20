@@ -9,6 +9,4 @@
 
   - [面试题1](deploy.md)
   - [面试题2](helpers.md)
-  - [面试题3](vue.md)
-  - [面试题4](cdn.md)
-  - [面试题5](pwa.md)
+  

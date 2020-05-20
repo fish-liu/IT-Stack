@@ -8,4 +8,4 @@
 
 - 面试题
 
-  - [常见面试题](mysql/qa1.md)
+  - [常见面试题](db/mysql/qa1.md)
