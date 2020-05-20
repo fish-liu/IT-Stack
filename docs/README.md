@@ -12,9 +12,10 @@
 ![Image text](_images/1.jpg)
 
 
-[java](/java/)
+如果你觉得有不对或者疑问的地方，可以提出
 
-[mysql](/mysql/)
+如果你有新的面试题，请添加
+
 
 
 
