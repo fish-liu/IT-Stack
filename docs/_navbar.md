@@ -13,10 +13,16 @@
 * [redis](redis/)
 
 
-* mq
+* 消息队列
   * [kafka](mq/kafka/)
   * [activemq](mq/activemq/)
   * [rabbit](mq/rabbit/)
   
   
 * [mysql](mysql/)
+
+<!--
+* 算法
+  * [数据结构]()
+  * [算法]()
+  --> 

@@ -9,9 +9,6 @@
 - 面试题整理
 
   - [java基础面试题1](java/qa1.md)
-  - [Helpers](helpers.md)
-  - [Vue compatibility](vue.md)
-  - [CDN](cdn.md)
-  - [Offline Mode(PWA)](pwa.md)
-  - [Server-Side Rendering(SSR)](ssr.md)
-  - [Embed Files](embed-files.md)
+  - [集合面试题](java/qa2.md)
+  - [多线程面试题](java/qa3.md)
+  - [jvm面试题](java/qa4.md)
