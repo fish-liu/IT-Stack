@@ -5,15 +5,10 @@
   - [Custom navbar](custom-navbar.md)
   - [Cover page](cover.md)
 
-- 框架相关
-
-  - [Spring](configuration.md)
-  - [SpringBoot](themes.md)
-  - [Mybatis](plugins.md)
 
 - 面试题整理
 
-  - [Deploy](deploy.md)
+  - [java基础面试题1](java/qa1.md)
   - [Helpers](helpers.md)
   - [Vue compatibility](vue.md)
   - [CDN](cdn.md)
