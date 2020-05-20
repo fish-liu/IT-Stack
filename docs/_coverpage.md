@@ -8,6 +8,8 @@
 - 无需生成 html 文件
 - 众多主题
 
+https://docsify.js.org/#/cdn
+
 [GitHub](https://github.com/docsifyjs/docsify/)
 [Get Started](#docsify)
 
