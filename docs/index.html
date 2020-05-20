@@ -2,21 +2,103 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>技术学习记录</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify/lib/themes/vue.css">
+
 </head>
 <body>
   <div id="app"></div>
   <script>
     window.$docsify = {
         name: '技术栈',
-        repo: '',
-        coverpage: true
+        repo: 'https://github.com/fish-liu/IT-Stack.git',
+        /*coverpage: true,*/
+        loadNavbar: '_navbar.md',
+        loadSidebar: true,
+        subMaxLevel: 3,
+        mergeNavbar: true,
     }
   </script>
-  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+
+  <!--
+
+  配置说明： 参考：https://www.cnblogs.com/juemuren4449/p/12904699.html
+
+  loadSidebar ： 加载自定义侧边栏，具体可以参考 https://docsify.js.org/#/more-pages。
+  loadSidebar: true,
+  增加 _sidebar.md 文件，编写文件格式如下：
+    - [CentOS](centos.md)
+    - [Docker](docker.md)
+    - [Mac](mac.md)
+    - [NPM](npm.md)
+    - [推荐](recommend.md)
+
+  subMaxLevel ： 自定义侧边栏后默认不会再生成目录，需要通过设置生成目录的最大层级开启这个功能。
+  subMaxLevel: 2,
+
+
+  auto2top  ：切换页面后是否自动跳转到页面顶部。
+  auto2top: true,
+
+  name  ：   文档标题，显示在侧栏顶部。
+  name: '技术栈',
+
+  nameLink ： 点击文档标题后跳转的链接地址。
+  nameLink: '/',    点击后跳转到 Wiki 首页。
+
+  routerMode  ： 设置路由模式。
+  routerMode: 'history',   设置为 history 之后，浏览器链接里不会出现 #，个人习惯。
+  注意，设置为 history，如果使用的是 Nginx 部署的项目，一定要加上下面的配置，否则在非首页刷新会找不到页面。
+  try_files $uri $uri/ /index.html;
+
+  coverpage  ： 设置是否启用封面页，默认不启用。
+
+  topMargin  ：  让你的内容页在滚动到指定的锚点时，距离页面顶部有一定空间。
+  topMargin: 40,
+  设置之后，点击侧栏的二级标题之后，页面的标题不会距离顶部太近。
+
+
+  插件：docsify 有丰富的插件，可以按需添加。
+
+  Full text search  ： 全局搜索
+  search: {
+    paths: 'auto',
+    placeholder: '请输入要搜索的关键字',
+    noData: '没有结果',
+    depth: 6,
+  },
+
+  开启全局搜索需要引入两个 js 文件：
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+
+
+  Copy to Clipboard ： 复制到剪贴板，在所有的代码块上添加一个简单的 Copy to Clipboard 按钮来允许用户从你的文档中复制代码。
+  需要引入 js 文件：
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code"></script>
+
+
+  Pagination  ： 分页导航，在文档的最下方会展示上一个文档和下一个文档。
+  pagination: {
+    previousText: '上一章节',
+    nextText: '下一章节',
+  }
+  需要引入两个 js 文件：
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
+
+
+
+
+  -->
+
+  <!--<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>-->
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-php.min.js"></script>
 </body>
 </html>
