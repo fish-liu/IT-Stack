@@ -8,6 +8,4 @@
 
 - 面试题
 
-  - [面试题1](mysql/qa1.md)
-  - [List of Plugins](plugins.md)
-  - [Language highlighting](language-highlight.md)
+  - [常见面试题](mysql/qa1.md)

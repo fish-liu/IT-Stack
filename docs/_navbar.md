@@ -2,27 +2,30 @@
 
 * [java](java/)
 
-
 * 框架
   * [Spring](framework/spring/)
   * [SpringBoot](framework/springboot/)
   * [Mybatis](framework/mybatis/)
   * [dubbo](framework/dubbo/)
 
-
-* [redis](redis/)
-
-
+* 分布式
+  * [zookeeper]()
+  * [分布式事务]()
+  * [分布式锁]()
+  
 * 消息队列
   * [kafka](mq/kafka/)
   * [activemq](mq/activemq/)
   * [rabbit](mq/rabbit/)
   
-  
-* [mysql](mysql/)
+* 存储  
+  * [redis](db/redis/)
+  * [mysql](db/mysql/)
+  * [ES](db/mysql/)
 
-<!--
-* 算法
+* 其他
+  * [tomcat]()
   * [数据结构]()
   * [算法]()
-  --> 
+  * [设计模式]()
+  * [linux]()

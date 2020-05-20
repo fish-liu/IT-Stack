@@ -1,11 +1,11 @@
-- java基础
+- Redis知识
 
-  - [jvm](/java/jvm1.md)
-  - [多线程](/java/threads.md)
-  - [Custom navbar](custom-navbar.md)
-  - [Cover page](cover.md)
+  - [Redis基础](/java/jvm1.md)
+  - [Redis集群](/java/threads.md)
+  - [持久化](custom-navbar.md)
+  - [Redis事务](cover.md)
 
-- 框架相关
+- 缓存相关
 
   - [Spring](configuration.md)
   - [SpringBoot](themes.md)
@@ -13,8 +13,8 @@
 
 - 面试题整理
 
-  - [Deploy](deploy.md)
-  - [Helpers](helpers.md)
+  - [Redis面试题](deploy.md)
+  - [缓存面试题](helpers.md)
   - [Vue compatibility](vue.md)
   - [CDN](cdn.md)
   - [Offline Mode(PWA)](pwa.md)
