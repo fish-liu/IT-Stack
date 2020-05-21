@@ -1,10 +1,11 @@
 - Mysql知识梳理
   - [整体设计](db/mysql/design.md)
-  - [存储引擎](db/mysql/more-pages.md)
-  - [事务与锁](custom-navbar.md)
-  - [索引](cover.md)
-  - [集群及分库分表](cover.md)
-  - [数据库优化](cover.md)
+  - [集群](db/mysql/cluster.md)
+  - [分库分表](db/mysql/split.md)
+  - [Innodb引擎](db/mysql/innodb.md)
+  - [SQL解析](db/mysql/sql.md)
+  - [SQL优化](db/mysql/optimize.md)
+  - [Binlog](db/mysql/binlog.md)
 
 - 面试题
 

@@ -83,7 +83,7 @@
     5 rows in set (0.01 sec)
     ```
 
-  - host字段中可以直接指定ip，域名或者使用%表示该用户可以从任意主机连接过来，或者统配作用如：192.168.1.%，具体匹配规则可以查看MySQL官方文档：6.2.4 Access Control, Stage 1: Connection Verification
+  - host字段中可以直接指定ip，域名或者使用%表示该用户可以从任意主机连接过来，或者统配作用如：192.168.1.%，具体匹配规则可以查看MySQL官方文档：[6.2.4 Access Control, Stage 1: Connection Verification](https://dev.mysql.com/doc/refman/5.7/en/connection-access.html)
 
   - 在user表添加，更新，删除访问用户如下：
   
@@ -101,7 +101,7 @@
 
 **3、 权限控制**
   
-    权限控制主要用于控制已经通过身份认证的用户，提交SQL请求对数据库进行的相关操作和访问，具体请看：MySQL权限控制
+   权限控制主要用于控制已经通过身份认证的用户，提交SQL请求对数据库进行的相关操作和访问，具体请看：MySQL权限控制
    
     
 #### SQL层

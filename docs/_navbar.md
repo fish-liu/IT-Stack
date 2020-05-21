@@ -24,8 +24,8 @@
   * [ES](db/mysql/)
 
 * 其他
-  * [tomcat]()
-  * [数据结构]()
+  * [tomcat](others/tomcat/)
+  * [数据结构](others/ds/)
   * [算法]()
   * [设计模式]()
   * [linux]()
