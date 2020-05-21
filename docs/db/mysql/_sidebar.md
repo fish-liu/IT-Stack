@@ -1,5 +1,5 @@
 - Mysql知识梳理
-
+  - [整体设计](db/mysql/design.md)
   - [存储引擎](more-pages.md)
   - [事务与锁](custom-navbar.md)
   - [索引](cover.md)
