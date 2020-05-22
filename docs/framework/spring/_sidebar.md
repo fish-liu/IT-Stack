@@ -7,6 +7,6 @@
 
 - 面试题整理
 
-  - [面试题1](deploy.md)
+  - [面试题1](framework/spring/qa1.md)
   - [面试题2](helpers.md)
   
