@@ -3,6 +3,8 @@
 原文链接：https://blog.csdn.net/u010013573/java/article/details/88930632
 
 
+https://my.oschina.net/u/4116286/blog/3107389
+
 #### 多路搜索树
 
 - 完全二叉树高度：O(log2N)，其中2为对数

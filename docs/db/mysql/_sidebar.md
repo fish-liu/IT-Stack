@@ -7,6 +7,7 @@
   - [SQL优化](db/mysql/optimize.md)
   - [Binlog](db/mysql/binlog.md)
   - [文件存储](db/mysql/file.md)
+  - [日志类型解惑](db/mysql/logtype.md)
 
 - 面试题
 
