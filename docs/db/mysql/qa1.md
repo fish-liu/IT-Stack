@@ -451,7 +451,9 @@ B+树相对于B树的一个主要的不同点是B+的叶子节点通过指针前
 
 **问题： 数据库崩溃时事务的恢复机制（REDO日志和UNDO日志）？**
 
+https://www.cnblogs.com/DiDiao-Liang/articles/8330870.html
 
+https://www.cnblogs.com/f-ck-need-u/archive/2018/05/08/9010872.html
 
 
 **问题： MySQL 死锁发生的原因和解决**
