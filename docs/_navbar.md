@@ -9,7 +9,8 @@
   * [dubbo](framework/dubbo/)
 
 * 分布式
-  * [zookeeper]()
+  * [dubbo](distri/dubbo/)
+  * [zookeeper](distri/zookeeper/)
   * [分布式事务]()
   * [分布式锁]()
   
