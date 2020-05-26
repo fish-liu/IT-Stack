@@ -1,6 +1,6 @@
-- 知识点
+- ZK知识梳理
 
-  - [知识点1](/java/jvm1.md)
+  - [ZK的搭建](distri/zookeeper/build.md)
   - [知识点2](/java/threads.md)
   - [知识点3](custom-navbar.md)
 

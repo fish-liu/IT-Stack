@@ -12,7 +12,7 @@
   * [dubbo](distri/dubbo/)
   * [zookeeper](distri/zookeeper/)
   * [分布式事务]()
-  * [分布式锁]()
+  * [分布式锁](distri/lock/)
   
 * 消息队列
   * [kafka](mq/kafka/)
