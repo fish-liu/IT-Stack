@@ -1,4 +1,6 @@
 
+https://www.cnblogs.com/mengchunchen/p/9316776.html
+
 zookeeper
 
 ZooKeeper 是一个开源的分布式协调服务，ZooKeeper 框架最初是在“Yahoo!"上构建的，用于以简单而稳健的方式访问他们的应用程序。
@@ -7,10 +9,39 @@ ZooKeeper 的设计目标是将那些复杂且容易出错的分布式一致性�
 
 > 原语： 操作系统或计算机网络用语范畴。它是由若干条指令组成的，用于完成一定功能的一个过程。具有不可分割性，即原语的执行必须是连续的，在执行过程中不允许被中断。
 
-ZooKeeper 是一个典型的分布式数据一致性解决方案，分布式应用程序可以基于 ZooKeeper 实现诸如数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master 选举、分布式锁和分布式队列等功能。
 
 
+### Zookeeper提供什么
 
+Zookeepr提供文件系统及通知机制。
+
+**文件系统：**
+
+Zookeeper维护一个类似文件系统的数据结构：
+
+![配置管理](/images/zkfile.png)
+
+每个子目录项如 NameService 都被称作为 znode，和文件系统一样，自由增加及删除，唯一不同其可存储数据。
+
+Znode有两种类型，短暂的（ephemeral）和持久的（persistent）
+- Znode的类型在创建时确定并且之后不能再修改
+- 短暂znode的客户端会话结束时，zookeeper会将该短暂znode删除，短暂znode不可以有子节点
+- 持久znode不依赖于客户端会话，只有当客户端明确要删除该持久znode时才会被删除
+
+Znode分为四种类型
+
+  - (1) PERSISTENT-持久化目录节点。（客户端与zookeeper断开连接后，该节点依旧存在）。
+
+  - (2) PERSISTENT_SEQUENTIAL-持久化顺序编号目录节点。（客户端与zookeeper断开连接后，该节点依旧存在，只是Zookeeper给该节点名称进行顺序编号）
+
+  - (3) EPHEMERAL-临时目录节点（客户端与zookeeper断开连接后，该节点被删除）
+
+  - (4) EPHEMERAL_SEQUENTIAL-临时顺序编号目录节点。（客户端与zookeeper断开连接后，该节点被删除，只是Zookeeper给该节点名称进行顺序编号）
+
+
+**通知机制：**
+
+客户端注册监听它关心的目录节点，当目录节点发生变化（数据改变、被删除、子目录节点增加删除）时，zookeeper会通知客户端。
 
 
 

@@ -29,4 +29,5 @@
   * [数据结构](others/ds/)
   * [算法]()
   * [设计模式]()
-  * [linux]()
+  * [Nginx](others/nginx/)
+  * [linux](others/linux/)

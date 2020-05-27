@@ -1,6 +1,9 @@
 
 本文转载自：https://www.jianshu.com/p/efc4ff85932d 
 
+https://www.cnblogs.com/f-ck-need-u/archive/2018/05/08/9010872.html
+
+https://blog.csdn.net/bohu83/article/details/81086474
 
 MySQL的文件结构
 
