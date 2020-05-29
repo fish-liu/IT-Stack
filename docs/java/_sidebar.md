@@ -2,6 +2,7 @@
 
   - [jvm](/java/jvm1.md)
   - [多线程](/java/threads.md)
+  - [锁](java/lock.md)
   - [Custom navbar](custom-navbar.md)
   - [Cover page](cover.md)
 
