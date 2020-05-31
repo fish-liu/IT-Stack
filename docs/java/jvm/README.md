@@ -1,6 +1,9 @@
 
 ### JVM内存结构
 
+https://blog.csdn.net/LZN51/article/details/71799189
+
+浅析jvm与jmm模型结构与关系
 
 ### JVM类加载机制
 

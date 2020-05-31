@@ -9,6 +9,9 @@ Mysql 一直都在用，但对其内在的设计及原理了解的不是很多�
 
 **原文地址： https://blog.csdn.net/u010013573/category_8739812.html**
 
+可能是全网最好的MySQL重要知识点/面试题总结
+https://segmentfault.com/a/1190000019619667
+
 
 <!--
 ## mysql的事务
