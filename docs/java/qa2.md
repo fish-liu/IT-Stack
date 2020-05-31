@@ -13,6 +13,9 @@
 
 **问题：有没有可能两个不相等的对象有相同的hashcode**
 
+**问题：ArrayList：在内存只有10M的空间中申请一块5M的数组空间，会导致OOM吗？**
+
+参考：https://blog.csdn.net/qq_33220089/article/details/105313478
 
 
 

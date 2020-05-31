@@ -1,10 +1,9 @@
-- java基础
+- java知识体系
 
-  - [jvm](/java/jvm1.md)
-  - [多线程](/java/threads.md)
-  - [锁](java/lock.md)
-  - [Custom navbar](custom-navbar.md)
-  - [Cover page](cover.md)
+  - [JVM虚拟机](/java/jvm/)
+  - [并发及多线程](/java/threads/)
+  - [常用集合](java/collection/)
+  - [Java基础](cover.md)
 
 
 - 面试题整理

@@ -1,5 +1,8 @@
 package com.fish.demo;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author liu
  * @date 2020/5/20
@@ -8,6 +11,9 @@ package com.fish.demo;
 public class Test {
 
     public static void main(String args[]){
+
+        Map map = null;
+        List list = null;
         System.out.println("hello world!");
     }
 

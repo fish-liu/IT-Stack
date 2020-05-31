@@ -9,5 +9,5 @@
 
 - 面试题整理
 
-  - [面试题](cdn.md)
+  - [面试题](others/ds/qa.md)
   - [面试题2](embed-files.md)
