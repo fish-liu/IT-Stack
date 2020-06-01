@@ -3,7 +3,7 @@
   - [JVM虚拟机](/java/jvm/)
   - [并发及多线程](/java/threads/)
   - [常用集合](java/collection/)
-  - [Java基础](cover.md)
+  - [Java基础](java/basic/)
 
 
 - 面试题整理

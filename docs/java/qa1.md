@@ -67,6 +67,9 @@
 那么finalize()究竟是做什么的呢？它最主要的用途是回收特殊渠道申请的内存。java程序由垃圾回收器，所以一般情况下内存问题不用程序由操心。但有一种JNI(java native interface)调用non-java程序（c或c++），finalize()的工作就是回收这部分内存。
 
 
+**问题：java面试题之int和Integer的区别**
+
+https://www.cnblogs.com/aspirant/p/10189604.html
 
 
 

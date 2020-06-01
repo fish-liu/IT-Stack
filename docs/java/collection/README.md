@@ -7,6 +7,10 @@ java 中的常用集合
 
 - Collection。一个独立元素的序列，这些元素都服从一条或多条规则。List必须按照插入的顺序保存元素，而Set不能有重复元素。Queue按照排队规则来确定对象产生的顺序。
 
+![集合](/images/collection.png)
+
+待整理： http://crazyfzw.github.io/2018/08/30/the-diff-ArrayList-Vector-LinkedList/#more
+
 - Map。一组成对的“键值对”对象，允许你使用键来查找值。映射表让我们能够使用一个对象来查找另一个对象，就像“字典”一样。
 
 

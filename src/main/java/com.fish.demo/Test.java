@@ -3,6 +3,9 @@ package com.fish.demo;
 import java.util.List;
 import java.util.Map;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author liu
  * @date 2020/5/20
@@ -15,6 +18,9 @@ public class Test {
         Map map = null;
         List list = null;
         System.out.println("hello world!");
+
+        Map m = new HashMap(13);
+
     }
 
 }
