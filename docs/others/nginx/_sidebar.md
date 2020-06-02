@@ -1,7 +1,8 @@
 - Nginx
+  - [Nginx安装](others/nginx/build.md)
   - [Nginx配置](others/nginx/config.md)
   - [Nginx原理](others/ds/balancetree.md)
-
+  
 
 - 面试题整理
 
