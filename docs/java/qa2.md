@@ -18,6 +18,9 @@
 参考：https://blog.csdn.net/qq_33220089/article/details/105313478
 
 
+**问题：HashMap默认加载因子为什么选择0.75？**
+
+参考：https://www.cnblogs.com/aspirant/p/11470928.html 、 https://www.jianshu.com/p/dff8f4641814
 
 
 

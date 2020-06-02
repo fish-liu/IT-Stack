@@ -92,9 +92,8 @@ RMI协议的Invoker转为Exporter发生在RmiProtocol类的export方法，
 接下来把Invoker转换为客户端需要的接口(如：HelloWorld)。
 
 
-
-
-
+Dubbo可扩展机制实战
+http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html
 
 
 
