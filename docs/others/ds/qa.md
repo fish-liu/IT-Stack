@@ -26,6 +26,10 @@
 如何找到环的入口？
 
 
+**问题：为什么MongoDB使用B-Tree，Mysql使用B+Tree ?**
+
+https://www.jianshu.com/p/564b23e68b18
+
 
 
 
