@@ -25,3 +25,8 @@ https://www.jianshu.com/p/bf158fbb2432
 
 
 ### 锁
+
+
+有关重偏向，批量撤销的概念
+
+http://www.360doc.com/content/20/0116/12/13328254_886489799.shtml

@@ -84,6 +84,11 @@ SLF4J让你的代码独立于任何特定的日志记录API，
 参考：https://www.cnblogs.com/aspirant/p/8508732.html
 
 
+**问题：如何计算Java对象所占内存的大小**
+
+参考：https://www.jianshu.com/p/9d729c9c94c4
+
+
 **问题Java中>>和>>>的区别**
 
 `>>：带符号右移。正数右移高位补0，负数右移高位补1。比如：`

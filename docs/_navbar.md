@@ -29,5 +29,5 @@
   * [linux](others/linux/)
   * [操作系统](others/system/)
   * [数据结构](others/ds/)
-  * [算法]()
+  * [算法](others/learn/)
   * [设计模式]()
