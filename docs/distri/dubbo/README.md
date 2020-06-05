@@ -96,7 +96,8 @@ Dubbo可扩展机制实战
 http://dubbo.apache.org/zh-cn/blog/introduction-to-dubbo-spi.html
 
 
+Dubbo篇之(一)：实现原理及架构详解
+http://crazyfzw.github.io/2018/06/10/dubbo-architecture/
 
 
-
-
+https://www.jianshu.com/p/292fcdcfe41e

@@ -30,3 +30,8 @@ https://www.jianshu.com/p/bf158fbb2432
 有关重偏向，批量撤销的概念
 
 http://www.360doc.com/content/20/0116/12/13328254_886489799.shtml
+
+深入分析Synchronized原理(阿里面试题)
+https://www.cnblogs.com/aspirant/p/11470858.html
+
+
