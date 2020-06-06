@@ -1,4 +1,5 @@
-- 2020考试复习
+- [2020考试复习](others/learn/)
+
   - [113应用统计学](others/learn/113.md)
   - [225现代远程技术](others/learn/225.md)
   - [229马克思主义](others/learn/229.md)
