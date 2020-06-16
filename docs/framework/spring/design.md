@@ -249,7 +249,6 @@ public ClassPathXmlApplicationContext(
 **所以Spring容器（IOC容器）的启动，需要从ClassPathXmlApplicationContext() 类的构造函数看起。最终调用refresh()方法**
 
 
-
 参考文章：https://blog.csdn.net/qq_16557637/article/details/100513286
 
 
@@ -258,6 +257,8 @@ public ClassPathXmlApplicationContext(
 web类型的项目，通过Servlet容器来启动， ContextLoadListener
 
 ![WebApplicationContext体系结构](/images/spring-web-tomcat.jpg)
+
+tomcat启动源码解析参考：https://www.cnblogs.com/yy3b2007com/p/12272001.html
 
 1、tomcat启动的时候，会加载web.xml文件，
 
@@ -274,6 +275,7 @@ tomcat在启动web容器的时候会启动一个叫ServletContextListener的监�
 
 6、ContextLoaderListener中的contextInitialized()进行了spring容器的启动配置，调用initWebApplicationContext初始化spring容器；
 
+ContextLoaderListener 部分代码
 ```
 @Override
 public void contextInitialized(ServletContextEvent event) {
