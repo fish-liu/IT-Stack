@@ -5,7 +5,7 @@ https://javadoop.com/post/spring-ioc
 
 ### 整体设计
 
-#### Spring容器高层视图
+#### Spring 容器高层视图
 
 - Spring 启动时读取应用程序提供的Bean配置信息，并在Spring容器中生成一份相应的Bean配置注册表，然后根据这张注册表实例化Bean，装配好Bean之间的依赖关系，为上层应用提供准备就绪的运行环境。
 
@@ -148,7 +148,6 @@ Sping分别提供了用于启动WebApplicationContext的Servlet和Web容器监�
 通过HierarchicalBeanFactory接口，sping的IoC容器可以建立父子层级关联的容器体系，子容器可以访问父容器中的Bean，但父容器不能访问子容器的Bean。在容器内，Bean的id必须是唯一的，但子容器可以拥有一个和父容器id相同的Bean。父子容器层级体系增强了sping容器架构的扩展性和灵活性，因为第三方可以通过编程的方式，为一个已经存在的容器添加一个或多个特殊用途的子容器，以提供一些额外的功能。
 
 
-
 ### Spring项目
 
 Spring 不仅可以构建web项目，也可以构建非web项目，针对不同类型的项目，启动方式也有一定的不同。
@@ -157,8 +156,9 @@ Spring 不仅可以构建web项目，也可以构建非web项目，针对不同�
 #### 非WEB类型项目
 
 非Web类型项目的启动，需要使用ApplicationContext的实现类，ClassPathXmlApplicationContext、FileSystemXmlApplicationContext 或者 AnnotationConfigApplicationContext 中的一个类启动即可，
-
 将所写的代码打成一个jar，指定main函数，然后执行java -jar  xxx.jar
+
+非WEB类型项目 Demo： 参考文章：https://blog.csdn.net/qq_16557637/article/details/100513286
 
 ```java
 //创建一个UserDao
@@ -203,12 +203,14 @@ public class Application {
      * 可以见com.wpf.app.Main
      */
     public static void main(String[] args) {
-        AnnotationConfigApplicationContext applicationContext = null;
+        ApplicationContext applicationContext = null;
         try {
-            applicationContext = new AnnotationConfigApplicationContext(Application.class);//初始化IOC容器
+            
+            // AnnotationConfigApplicationContext 方式
+            //applicationContext = new AnnotationConfigApplicationContext(Application.class);//初始化IOC容器
             
             // ClassPathXmlApplicationContext 方式
-            //ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationfile.xml");
+            context = new ClassPathXmlApplicationContext("classpath:application.xml");
             
             UserService userService = applicationContext.getBean(UserService.class);//通过IOC容器获得你要执行的业务代码的类
             User user = userService.findById();//通过IOC容器获取到的类执行你的业务代码
@@ -221,71 +223,117 @@ public class Application {
         }
     }
 }
-
 ```
+
+注意：Application这个类是放在包的根目录下，所以@ComponentScan是扫描根包下所有使用注解得Bean，如果你的主函数入口放在其他包下面，那么请在@ComponentScan加入包扫描路径。
 
 ClassPathXmlApplicationContext 部分代码
 
 ```
-public ClassPathXmlApplicationContext(String configLocation) throws BeansException {
-    this(new String[] {configLocation}, true, null);
-}
-
-public ClassPathXmlApplicationContext(
-        String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
-        throws BeansException {
-
-    super(parent);
-    setConfigLocations(configLocations);
-    if (refresh) {
-        refresh();
+public class ClassPathXmlApplicationContext extends AbstractXmlApplicationContext {
+    private Resource[] configResources;
+    
+    public ClassPathXmlApplicationContext(String configLocation) throws BeansException {
+        this(new String[] {configLocation}, true, null);
     }
-}
+    
+    // 如果已经有 ApplicationContext 并需要配置成父子关系，那么调用这个构造方法
+    public ClassPathXmlApplicationContext(ApplicationContext parent) {
+        super(parent);
+    }
+    
+    public ClassPathXmlApplicationContext(
+            String[] configLocations, boolean refresh, @Nullable ApplicationContext parent)
+            throws BeansException {
+    
+        super(parent);
+        
+        // 根据提供的路径，处理成配置文件数组(以分号、逗号、空格、tab、换行符分割)
+        setConfigLocations(configLocations);
+        if (refresh) {
+            refresh();  // 核心方法
+        }
+    }
+    
+    ...
+    
+}    
 ```
 
+所以Spring容器（IOC容器）的启动，从ClassPathXmlApplicationContext() 类看起。
 
-注意：Application这个类是放在包的根目录下，所以@ComponentScan是扫描根包下所有使用注解得Bean，如果你的主函数入口放在其他包下面，那么请在@ComponentScan加入包扫描路径。
+核心代码块为：
 
-**所以Spring容器（IOC容器）的启动，需要从ClassPathXmlApplicationContext() 类的构造函数看起。最终调用refresh()方法**
+`
+// 根据提供的路径，处理成配置文件数组(以分号、逗号、空格、tab、换行符分割)
+setConfigLocations(configLocations);
+if (refresh) {
+    refresh();  // 核心方法
+}
+`
 
+refresh() 方法的源码分析参考 [Spring IOC](framework/spring/ioc.md)
 
-参考文章：https://blog.csdn.net/qq_16557637/article/details/100513286
 
 
 #### WEB 类型项目
 
-web类型的项目，通过Servlet容器来启动， ContextLoadListener
+WEB类型的项目，通过WEB容器 --> Servlet容器 --> Spring 容器的启动方式来启动。（以常见的TOMCAT WEB容器启动为例）
+
+备注：TOMCAT启动源码解析参考：https://www.cnblogs.com/yy3b2007com/p/12272001.html 
+
+本部分内容参考：https://www.jb51.net/article/173806.htm
 
 ![WebApplicationContext体系结构](/images/spring-web-tomcat.jpg)
 
-tomcat启动源码解析参考：https://www.cnblogs.com/yy3b2007com/p/12272001.html
+![webxml](/images/webxml.jpg)
 
-1、tomcat启动的时候，会加载web.xml文件，
+1、WEB容器（TOMCAT）启动的时候，会先加载web.xml文件，并解析web.xml文件，
 
-2、解析web.xml文件，读取<listener>和<context-param>两个结点的内容
+2、首先读取 `<listener>` 和 `<context-param>` 两个结点的内容
 
 3、创建一个ServletContext（servlet上下文）, 这个web项目的所有部分都将共享这个上下文。
 
-4、容器将<context-param>转换为键值对, 并交给servletContext。
+4、容器将<context-param>转换为键值对, 并交给ServletContext。
 
-5、容器创建<listener>中的类实例,创建监听器；
+5、容器创建 `<listener>` 中的类实例,创建监听器；
 
-tomcat在启动web容器的时候会启动一个叫ServletContextListener的监听器，每当在web容器中有ServletContextListener这个接口被实例化的时候，web容器会通知ServletContextListener被实例的对象去执行其contextInitialized()的方法进行相应的业务处理；
+> TOMCAT在启动web容器的时候会启动一个叫ServletContextListener的监听器，每当在web容器中有ServletContextListener这个接口被实例化的时候，web容器会通知ServletContextListener被实例的对象去执行其contextInitialized()的方法进行相应的业务处理；
 而spring框架在设计的过程中ContextLoadListener这个类实现了ServletContextListener这个接口，因此每当有ContextLoadListener这个类被实例化的时候，web容器会通知Spring执行contextInitialized（）这个方法，从而进行spring容器的启动与创建的过程中
 
 6、ContextLoaderListener中的contextInitialized()进行了spring容器的启动配置，调用initWebApplicationContext初始化spring容器；
 
 ContextLoaderListener 部分代码
+
 ```
-@Override
-public void contextInitialized(ServletContextEvent event) {
-  initWebApplicationContext(event.getServletContext());
-}
+public class ContextLoaderListener extends ContextLoader implements ServletContextListener {
+    
+    public ContextLoaderListener() {
+    }
+    
+    public ContextLoaderListener(WebApplicationContext context) {
+        super(context);
+    }
+    
+    @Override
+    public void contextInitialized(ServletContextEvent event) {
+      // 调用initWebApplicationContext初始化spring容器
+      initWebApplicationContext(event.getServletContext());
+    }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent event) {
+        closeWebApplicationContext(event.getServletContext());
+        ContextCleanupListener.cleanupAttributes(event.getServletContext());
+    }
+}    
 ```
 
 ```
+// 初始化spring容器 , 该方法在父类 ContextLoader 中
 public WebApplicationContext initWebApplicationContext(ServletContext servletContext) {
-  //Spring 启动的句柄，spring容器开始启动的根目录
+
+  // Spring 启动的句柄，spring容器开始启动的根目录
   if(servletContext.getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE) != null) {
     throw new IllegalStateException("Cannot initialize context because there is already a root application context present - check whether you have multiple ContextLoader* definitions in your web.xml!");
   } else {
@@ -311,7 +359,7 @@ public WebApplicationContext initWebApplicationContext(ServletContext servletCon
             cwac.setParent(parent);
           }
   
-          //Spring容器创建完成后，加载spring容器的各个组件
+          // Spring 容器创建完成后，加载spring容器的各个组件
           this.configureAndRefreshWebApplicationContext(cwac, servletContext);
         }
       }
@@ -349,41 +397,61 @@ public WebApplicationContext initWebApplicationContext(ServletContext servletCon
 
 ```
 protected void configureAndRefreshWebApplicationContext(ConfigurableWebApplicationContext wac, ServletContext sc) {
-        if (ObjectUtils.identityToString(wac).equals(wac.getId())) {
-            // The application context id is still set to its original default value
-            // -> assign a more useful id based on available information
-            String idParam = sc.getInitParameter(CONTEXT_ID_PARAM);
-            if (idParam != null) {
-                wac.setId(idParam);
-            }
-            else {
-                // Generate default id...
-                wac.setId(ConfigurableWebApplicationContext.APPLICATION_CONTEXT_ID_PREFIX +
-                        ObjectUtils.getDisplayString(sc.getContextPath()));
-            }
+    if (ObjectUtils.identityToString(wac).equals(wac.getId())) {
+        // The application context id is still set to its original default value
+        // -> assign a more useful id based on available information
+        String idParam = sc.getInitParameter(CONTEXT_ID_PARAM);
+        if (idParam != null) {
+            wac.setId(idParam);
         }
-  
-        wac.setServletContext(sc);
-        String configLocationParam = sc.getInitParameter(CONFIG_LOCATION_PARAM);
-        if (configLocationParam != null) {
-            wac.setConfigLocation(configLocationParam);
+        else {
+            // Generate default id...
+            wac.setId(ConfigurableWebApplicationContext.APPLICATION_CONTEXT_ID_PREFIX +
+                    ObjectUtils.getDisplayString(sc.getContextPath()));
         }
-  
-        // The wac environment's #initPropertySources will be called in any case when the context
-        // is refreshed; do it eagerly here to ensure servlet property sources are in place for
-        // use in any post-processing or initialization that occurs below prior to #refresh
-        ConfigurableEnvironment env = wac.getEnvironment();
-        if (env instanceof ConfigurableWebEnvironment) {
-            ((ConfigurableWebEnvironment) env).initPropertySources(sc, null);
-        }
-  
-        customizeContext(sc, wac);
-        wac.refresh();
     }
+
+    wac.setServletContext(sc);
+    String configLocationParam = sc.getInitParameter(CONFIG_LOCATION_PARAM);
+    if (configLocationParam != null) {
+        // 调用 setConfigLocation 方法
+        wac.setConfigLocation(configLocationParam);
+    }
+
+    // The wac environment's #initPropertySources will be called in any case when the context
+    // is refreshed; do it eagerly here to ensure servlet property sources are in place for
+    // use in any post-processing or initialization that occurs below prior to #refresh
+    ConfigurableEnvironment env = wac.getEnvironment();
+    if (env instanceof ConfigurableWebEnvironment) {
+        ((ConfigurableWebEnvironment) env).initPropertySources(sc, null);
+    }
+
+    customizeContext(sc, wac);
+    // 调用 refresh
+    wac.refresh();
+}
 ```
 
-**所以Spring容器（IOC容器）的启动，需要ContextLoaderListener-> ContextLoader 的 initWebApplicationContext方法开始，最终调用refresh()方法**
+备注： configureAndRefreshWebApplicationContext中加载spring的配置文件，即web.xml中读取<context-param></context-param>中加载到Spring的配置文件，即：classpath：/config/applicationContext.xml；
+同new ClassPathXmlApplicationContext("/context.xml"); 加载spring的配置文件一样。
 
+
+所以WEB容器启动 Spring容器（IOC容器），需要从ContextLoaderListener类（initWebApplicationContext方法）看起。
+
+核心代码块为：
+
+`
+if (configLocationParam != null) {
+    // 调用 setConfigLocation 方法
+    wac.setConfigLocation(configLocationParam);
+}
+...
+customizeContext(sc, wac);
+// 调用 refresh
+wac.refresh();
+`
+
+**对于WEB项目中的Servlet加载，参见下文 Servlet 初始化（配置ServletContext及ServletConfig）**
 
 #### 总结
 
@@ -392,31 +460,14 @@ Spring 容器的启动，最终都调用的是的 refresh()方法，即AbstractA
 详细的IOC启动流程，[点击这里](framework/spring/ioc.md)
 
 
-
 ### 常见概念
 
-#### Servlet 规范 
 
-参考：[Servlet 规范](java/servlet/)
-
-#### Servlet 容器
-
-Servlet 容器是 web server 或 application server 的一部分，提供基于请求/响应发送模型的网络服务，解码基于 MIME 的请求，并且格式化基于 MIME 的响应。Servlet 容器也包含了管理 Servlet 生命周期。Servlet 容器可以嵌入到宿主的 web server 中，或者通过 Web Server 的本地扩展 API 单独作为附加组件安。Servelt 容器也可能内嵌或安装到包含 web 功能的 application server 中。所有 Servlet 容器必须支持基于 HTTP 协议的请求/响应模型，比如像基于 HTTPS（HTTP over SSL）协议的请求/应答模型可以选择性的支持。容器必须实现的 HTTP 协议版本包含 HTTP/1.0 和 HTTP/1.1。
-
-#### ServletContext 
-
-ServletContext: 这个是来自于servlet规范里的概念，它是servlet用来与容器间进行交互的接口的组合，也就是说，这个接口定义了一系列的方法，servlet通过这些方法可以很方便地与自己所在的容器进行一些交互，比如通过getMajorVersion与getMinorVersion来获取容器的版本信息等. 从它的定义中也可以看出，在一个应用中(一个JVM)只有一个ServletContext, 换句话说，容器中所有的servlet都共享同一个ServletContext.
-
-#### ServletConfig 
-
-ServletConfig: 它与ServletContext的区别在于，servletConfig是针对servlet而言的，每个servlet都有它独有的serveltConfig信息，相互之间不共享.
-
-#### Spring容器
+#### Spring 容器
 
 https://blog.csdn.net/haohaizijhz/article/details/90674774
 
 https://www.cnblogs.com/jieerma666/p/10805966.html
-
 
 https://www.cnblogs.com/pan-4957/p/10599020.html
 
@@ -431,19 +482,143 @@ Bean是Spring管理的基本单位，在基于Spring的Java EE应用中，所有
 Spring容器负责创建Bean实例，所以需要知道每个Bean的实现类，Java程序面向接口编程，无须关心Bean实例的实现类；但是Spring容器必须能够精确知道每个Bean实例的实现类，因此Spring配置文件必须精确配置Bean实例的实现类。
 
 
-#### ApplicationContext
+#### Servlet 规范 
 
-ApplicationContext: 这个类是Spring实现容器功能的核心接口，它也是Spring实现IoC功能中最重要的接口，从它的名字中可以看出，它维护了整个程序运行期间所需要的上下文信息， 注意这里的应用程序并不一定是web程序，也可能是其它类型的应用. 在Spring中允许存在多个applicationContext，这些context相互之间还形成了父与子，继承与被继承的关系，这也是通常我们所说的，在spring中存在两个context,一个是root context，一个是servlet applicationContext的意思. 这点后面会进一步阐述.
+参考：[Servlet 规范](java/servlet/)
 
-#### WebApplicationContext
+#### Servlet 容器 
 
-WebApplicationContext: 其实这个接口不过是applicationContext接口的一个子接口罢了，只不过说它的应用形式是web罢了. 它在ApplicationContext的基础上，添加了对ServletContext的引用，即getServletContext方法.
+Servlet 容器是 web server 或 application server 的一部分，提供基于请求/响应发送模型的网络服务，解码基于 MIME 的请求，并且格式化基于 MIME 的响应。Servlet 容器也包含了管理 Servlet 生命周期。Servlet 容器可以嵌入到宿主的 web server 中，或者通过 Web Server 的本地扩展 API 单独作为附加组件安。Servelt 容器也可能内嵌或安装到包含 web 功能的 application server 中。所有 Servlet 容器必须支持基于 HTTP 协议的请求/响应模型，比如像基于 HTTPS（HTTP over SSL）协议的请求/应答模型可以选择性的支持。容器必须实现的 HTTP 协议版本包含 HTTP/1.0 和 HTTP/1.1。
+
+#### ServletContext 
+
+ServletContext: 这个是来自于servlet规范里的概念，它是servlet用来与容器间进行交互的接口的组合，也就是说，这个接口定义了一系列的方法，servlet通过这些方法可以很方便地与自己所在的容器进行一些交互，比如通过getMajorVersion与getMinorVersion来获取容器的版本信息等. 从它的定义中也可以看出，在一个应用中(一个JVM)只有一个ServletContext, 换句话说，容器中所有的servlet都共享同一个ServletContext.
+
+#### ServletConfig 
+
+ServletConfig: 它与ServletContext的区别在于，servletConfig是针对servlet而言的，每个servlet都有它独有的serveltConfig信息，相互之间不共享.
+
+
+#### Servlet 初始化（配置ServletContext及ServletConfig）
+
+本部分内容参考：https://blog.csdn.net/u010325193/article/details/84534861
 
 
 
 
 
 
+#### TOMCAT 与 Servlet （推荐多看看）
+
+本部分内容参考：https://www.cnblogs.com/inspred/p/10949509.html
+
+##### 一，当Http服务器接收请求后，如何知道调用哪些java类来处理请求呢？
+
+有些类可能就是用来封装变量的，有些类才是用来处理请求的。为了识别出那些具有处理请求的类，定义了一个接口，这个接口就叫Servlet接口，如果想要让业务类具备处理请求的能力，都必须实现这个接口，实现了接口的业务类叫做Servlet。
+
+##### 二，对于特定的请求，Http服务器如何知道由哪个Servlet来处理？Servlet又是由谁来实例化呢
+
+于是又有了Servlet容器。Http服务器把请求交给Servlet容器去处理，Servlet容器会将请求转发到具体的Servlet,如果这个Servlet还没创建，就加载并实例化这个Servlet，然后调用这个Servlet的接口方法。
+
+Servlet接口其实是Servlet容器和具体业务类之间的接口：
+
+![http-servlet](/images/http-servlet.png)
+
+Http服务器不直接调用业务类，而是把请求交给容器来处理，容器通过Servlet接口调用业务类。因此Servlet接口和Servlet容器的出现，使Http服务器和业务类解耦。
+
+Servlet规范：Servlet接口 + Servlet容器。Tomcat按照Servlet规范的要求实现了Servlet容器，同时它也具有Http服务器的功能。（如果我们要实现新的业务功能，只需要实现一个 Servlet，然后把它注册到Tomcat(Servlet容器)中，剩下的事情由Tomcat帮我们来处理）。
+
+
+##### 三，Servlet接口
+
+Servlet接口定义了五个方法：
+
+```
+public interface Servlet {
+    void init(ServletConfig config) throws ServletException;
+    
+    ServletConfig getServletConfig();
+    
+    void service(ServletRequest req, ServletResponse res）throws ServletException, IOException;
+    
+    String getServletInfo();
+    
+    void destroy();
+}
+```
+
+- 1、init(ServletConfig config)：
+
+  和生命周期有关的方法，Servlet容器在加载Servlet类的时候会调用init方法。可能会在init方法里初始化一些资源。比如Springmvc中的DispatcherServlet,在init方法中创建了自己的spring容器。
+
+- 2、ServletConfig getServletConfig()：
+
+  ServletConfig就是封装Servlet的初始化参数。可以在web.xml给Servlet配置参数，然后在程序中通过getServletConfig方法拿到这些参数。
+
+- 3、service(ServletRequest req, ServletResponse res）：
+
+  业务类在这个方法里实现处理逻辑。ServletRequest用来封装请求信息，ServletResponse用来封装响应信息。本质上这两个类是对通信协议的封装。
+
+  Http协议中的请求和响应就是对应了HttpServletRequest和HttpServletResponse这两个类。我们可以通过HttpServletRequest来获取所有请求相关的信息，包括请求路径，Cookie，Http头，请求参数等。
+
+- 4、String getServletInfo()
+
+- 5、destroy()：
+
+  和生命周期有关的方法，Servlet容器在卸载Servlet类的时候会调用destory方法。在destory方法里释放这些资源。
+
+##### 四，Servlet容器
+
+- 1、 Servlet容器工作流程
+
+  当客户请求某一个资源时，Http服务器会用一个ServletRequest对象把客户的请求信息封装起来，然后调用Servlet容器的service方法，Servlet容器拿到请求后，根据请求的URL和Servlet的映射关系，找到相应的Servlet，如果Servlet还没有被加载，就用反射机制创建这个Servlet，并调用Servlet的init方法来完成初始化，接着调用Servlet的service方法来处理请求，把ServletResponse对象返回给Http服务器，Http服务器会把响应发送给客户端。
+
+  ![servlet-work](/images/servlet-work.png)
+
+- 2、 Web应用
+
+  - Servlet容器负责实例化和调用Servlet，那么Servlet是怎么注册到Servlet容器的呢？
+
+    我们一般以Web应用程序的方式来部署Servlet的。根据Servlet规范，Web应用程序有一定的目录结构：
+
+    ```
+    | -  MyWebApp
+          | -  WEB-INF/web.xml        -- 配置文件，用来配置 Servlet 等
+          | -  WEB-INF/lib/           -- 存放 Web 应用所需各种 JAR 包
+          | -  WEB-INF/classes/       -- 存放你的应用类，比如 Servlet 类
+          | -  META-INF/              -- 目录存放工程的一些信息
+    ```
+
+    在这个目录下分别放置了Servlet的类文件，配置文件，静态资源文件，Servlet容器通过读取配置文件，就可以找到并加载Servlet。
+
+  - Servlet规范中定义了ServletContext这个接口来对应一个Web应用。
+
+    Web应用部署好以后，Servlet容器在启动时会加载Web应用，并为每个Web应用创建唯一的ServletContext对象。你可以把ServletContext看成是一个全局对象，一个Web应用可能有多个Servlet，这些Servlet可以通过全局的ServletContext来共享数据，这些数据包括Web应用的初始化参数，Web应用目录下的文件资源等。因为ServletContext持有所有Servlet实例，还可以通过它来实现Servlet请求的转发。
+
+  - 扩展机制：Filter和Listener
+
+   - Filter：过滤器，这个接口允许对请求和响应做一些统一的定制化处理，比如可以根据请求的频率来限制访问，根据国家地区的不同来修改响应的内容。
+
+     过滤器原理：Web应用部署完以后，Servlet容器需要实例化Filter并把Filter链接成一个FilterChain。当请求进来时，获取第一个Filter并调用doFilter方法，doFilter方法负责调用　FilterChain的下一个Filter。
+
+   - Listener：监听器，当Web应用在Servlet容器中运行时，Servlet容器内部会不断发生各种事件，比如Web应用的启动和停止，用户请求到达等。Servlet容器提供了一些默认的监听器来监听这些事件，当事件发生时，Servlet容器会负责调用监听器的方法。自定义监听器需要把监听器配置在web.xml中。比如：Spring就实现了自己的监听器，用来监听ServletContext的启动事件，目的是当Servlet容器启动时，创建并初始化全局的Spring容器。
+
+
+##### 五，各种容器（Web容器，Servlet容器，Spring容器，SpringMvc容器）
+
+- 1、Tomcat在启动时给每个Web应用创建一个全局的上下文环境，这个上下文就是ServletContext，为后面的Spring容器提供宿主环境。
+
+- 2、Tomcat在启动过程中触发容器初始化事件，Spring的ContextLoaderListener会监听到这个事件，它的contextInitialized方法会被调用，然后Spring会初始化全局的Spring根容器，这个就是Spring的Ioc容器，Ioc容器初始化完毕后，Spring将其存储到ServletContext中，便于以后获取。
+
+- 3、Tomcat启动时还会扫描Servlet，一个Web应用中的Servlet可以有多个，以SpringMvc中的DispatcherServet为例，这个Servlet实际上是一个标准的前端控制器，用来转发，匹配，处理每个Servlet请求。
+
+- 4、Servlet一般会延迟加载，当第一个请求到达时，Tomcat发现DispatcherServet还没有被实例化，就调用DispatcherServet的init方法，DispatcherServet在初始化的时候会建立自己的容器，叫做SpringMvc容器，用来持有SpringMvc相关的Bean。同时，SpringMvc还会通过ServletContext拿到Spring根容器，并把Spring根容器设置为SpringMvc容器的父容器，Spring容器可以访问父容器中的Bean，但是父容器不能访问子容器中的Bean（Spring容器不能访问SpringMvc容器里的Bean --->Controller里可以访问Service对象，但是在Service里不可以访问Controller对象）。
+
+![rongqi](/images/rongqi.png)
+
+web容器中有servlet容器，spring项目部署后存在spring容器和springmvc容器。其中spring控制service层和dao层的bean对象。springmvc容器控制controller层bean对象。servlet容器控制servlet对象。项目启动是，首先 servlet初始化，初始化过程中通过web.xml中spring的配置加载spring配置，初始化spring容器和springmvc容器。待容器加载完成。servlet初始化完成，则完成启动。
+
+HTTP请求到达web容器后，会到达Servlet容器，容器通过分发器分发到具体的spring的Controller层。执行业务操作后返回结果。
 
 
 
