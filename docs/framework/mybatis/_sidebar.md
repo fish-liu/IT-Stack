@@ -1,12 +1,10 @@
-- 知识点
+- Mybatis
 
-  - [知识点1](/java/jvm1.md)
-  - [知识点2](/java/threads.md)
-  - [知识点3](custom-navbar.md)
+  - [设计与架构](framework/mybatis/design.md)
+  - [源码分析](framework/mybatis/code.md)
+  - [Mybatis-Spring](framework/mybatis/spring.md)
 
 
 - 面试题整理
 
   - [面试题1](deploy.md)
-  - [面试题2](helpers.md)
-  - [面试题3](vue.md)
