@@ -424,7 +424,7 @@ public interface FoodService {
 
 public class FoodServiceImpl implements FoodService {
     public Food makeChicken() {
-          Food f = new Chicken()
+          Food f = new Chicken();
         f.setChicken("1kg");
           f.setSpicy("1g");
           f.setSalt("3g");
@@ -459,7 +459,7 @@ public class FoodServiceProxy implements FoodService {
     public Food makeNoodle() {
         System.out.println("准备制作拉面~");
         Food food = foodService.makeNoodle();
-        System.out.println("制作完成啦")
+        System.out.println("制作完成啦");
         return food;
     }
 }
@@ -746,21 +746,313 @@ public static void main(String[] args) {
 
 可能大家看上面一步步还不是特别清晰，我把所有的东西整合到一张图上：
 
-![适配器](/images/bridge-1.png)
+![桥梁模式](/images/bridge-1.png)
 
 这回大家应该就知道抽象在哪里，怎么解耦了吧。桥梁模式的优点也是显而易见的，就是非常容易进行扩展。
 
 
 #### 装饰模式
 
+要把装饰模式说清楚明白，不是件容易的事情。也许读者知道 Java IO 中的几个类是典型的装饰模式的应用，但是读者不一定清楚其中的关系，也许看完就忘了，希望看完这节后，读者可以对其有更深的感悟。
+
+首先，我们先看一个简单的图，看这个图的时候，了解下层次结构就可以了：
+
+![桥梁模式](/images/decorator-1.png)
+
+我们来说说装饰模式的出发点，从图中可以看到，接口 Component 其实已经有了 ConcreteComponentA 和 ConcreteComponentB 两个实现类了，但是，如果我们要增强这两个实现类的话，我们就可以采用装饰模式，用具体的装饰器来装饰实现类，以达到增强的目的。
+
+> 从名字来简单解释下装饰器。既然说是装饰，那么往往就是添加小功能这种，而且，我们要满足可以添加多个小功能。最简单的，代理模式就可以实现功能的增强，但是代理不容易实现多个功能的增强，当然你可以说用代理包装代理的多层包装方式，但是那样的话代码就复杂了。
+
+
+首先明白一些简单的概念，从图中我们看到，所有的具体装饰者们 ConcreteDecorator* 都可以作为 Component 来使用，因为它们都实现了 Component 中的所有接口。它们和 Component 实现类 ConcreteComponent* 的区别是，它们只是装饰者，起装饰作用，也就是即使它们看上去牛逼轰轰，但是它们都只是在具体的实现中加了层皮来装饰而已。
+
+> 注意这段话中混杂在各个名词中的 Component 和 Decorator，别搞混了。
+
+下面来看看一个例子，先把装饰模式弄清楚，然后再介绍下 java io 中的装饰模式的应用。
+
+最近大街上流行起来了“快乐柠檬”，我们把快乐柠檬的饮料分为三类：红茶、绿茶、咖啡，在这三大类的基础上，又增加了许多的口味，什么金桔柠檬红茶、金桔柠檬珍珠绿茶、芒果红茶、芒果绿茶、芒果珍珠红茶、烤珍珠红茶、烤珍珠芒果绿茶、椰香胚芽咖啡、焦糖可可咖啡等等，每家店都有很长的菜单，但是仔细看下，其实原料也没几样，但是可以搭配出很多组合，如果顾客需要，很多没出现在菜单中的饮料他们也是可以做的。
+
+在这个例子中，红茶、绿茶、咖啡是最基础的饮料，其他的像金桔柠檬、芒果、珍珠、椰果、焦糖等都属于装饰用的。当然，在开发中，我们确实可以像门店一样，开发这些类：LemonBlackTea、LemonGreenTea、MangoBlackTea、MangoLemonGreenTea......但是，很快我们就发现，这样子干肯定是不行的，这会导致我们需要组合出所有的可能，而且如果客人需要在红茶中加双份柠檬怎么办？三份柠檬怎么办？
+
+不说废话了，上代码。
+
+首先，定义饮料抽象基类：
+
+```java
+public abstract class Beverage {
+      // 返回描述
+      public abstract String getDescription();
+      // 返回价格
+      public abstract double cost();
+}
+```
+
+然后是三个基础饮料实现类，红茶、绿茶和咖啡：
+
+```
+public class BlackTea extends Beverage {
+      public String getDescription() {
+        return "红茶";
+    }
+      public double cost() {
+        return 10;
+    }
+}
+public class GreenTea extends Beverage {
+    public String getDescription() {
+        return "绿茶";
+    }
+      public double cost() {
+        return 11;
+    }
+}
+...// 咖啡省略
+```
+
+定义调料，也就是装饰者的基类，此类必须继承自 Beverage：
+
+```java
+// 调料
+public abstract class Condiment extends Beverage {
+
+}
+```
+
+然后我们来定义柠檬、芒果等具体的调料，它们属于装饰者，毫无疑问，这些调料肯定都需要继承调料 Condiment 类：
+
+```
+public class Lemon extends Condiment {
+    private Beverage bevarage;
+    // 这里很关键，需要传入具体的饮料，如需要传入没有被装饰的红茶或绿茶，
+    // 当然也可以传入已经装饰好的芒果绿茶，这样可以做芒果柠檬绿茶
+    public Lemon(Beverage bevarage) {
+        this.bevarage = bevarage;
+    }
+    public String getDescription() {
+        // 装饰
+        return bevarage.getDescription() + ", 加柠檬";
+    }
+    public double cost() {
+        // 装饰
+        return beverage.cost() + 2; // 加柠檬需要 2 元
+    }
+}
+
+public class Mango extends Condiment {
+    private Beverage bevarage;
+    public Mango(Beverage bevarage) {
+        this.bevarage = bevarage;
+    }
+    public String getDescription() {
+        return bevarage.getDescription() + ", 加芒果";
+    }
+    public double cost() {
+        return beverage.cost() + 3; // 加芒果需要 3 元
+    }
+}
+...// 给每一种调料都加一个类
+```
+
+看客户端调用：
+
+```
+public static void main(String[] args) {
+    // 首先，我们需要一个基础饮料，红茶、绿茶或咖啡
+    Beverage beverage = new GreenTea();
+    // 开始装饰
+    beverage = new Lemon(beverage); // 先加一份柠檬
+    beverage = new Mongo(beverage); // 再加一份芒果
+
+    System.out.println(beverage.getDescription() + " 价格：￥" + beverage.cost());
+    //"绿茶, 加柠檬, 加芒果 价格：￥16"
+}
+```
+
+如果我们需要 芒果-珍珠-双份柠檬-红茶：
+
+```
+Beverage beverage = new Mongo(new Pearl(new Lemon(new Lemon(new BlackTea()))));
+```
+
+是不是很变态？
+
+下图可能会清晰一些：
+
+![装饰模式](/images/decorator-2.png)
+
+到这里，大家应该已经清楚装饰模式了吧。
+
+下面，我们再来说说 java IO 中的装饰模式。看下图 InputStream 派生出来的部分类：
+
+![装饰模式](/images/decorator-3.png)
+
+我们知道 InputStream 代表了输入流，具体的输入来源可以是文件（FileInputStream）、管道（PipedInputStream）、数组（ByteArrayInputStream）等，这些就像前面奶茶的例子中的红茶、绿茶，属于基础输入流。
+
+FilterInputStream 承接了装饰模式的关键节点，它的实现类是一系列装饰器，比如 BufferedInputStream 代表用缓冲来装饰，也就使得输入流具有了缓冲的功能，LineNumberInputStream 代表用行号来装饰，在操作的时候就可以取得行号了，DataInputStream 的装饰，使得我们可以从输入流转换为 java 中的基本类型值。
+
+当然，在 java IO 中，如果我们使用装饰器的话，就不太适合面向接口编程了，如：
+
+```
+InputStream inputStream = new LineNumberInputStream(new BufferedInputStream(new FileInputStream("")));
+```
+
+这样的结果是，InputStream 还是不具有读取行号的功能，因为读取行号的方法定义在 LineNumberInputStream 类中。
+
+我们应该像下面这样使用：
+
+```
+DataInputStream is = new DataInputStream(
+                              new BufferedInputStream(
+                                  new FileInputStream("")));
+```
+
+> 所以说嘛，要找到纯的严格符合设计模式的代码还是比较难的。
+
 
 #### 门面模式
+
+门面模式（也叫外观模式，Facade Pattern）在许多源码中有使用，比如 slf4j 就可以理解为是门面模式的应用。这是一个简单的设计模式，我们直接上代码再说吧。
+
+首先，我们定义一个接口：
+
+```java
+public interface Shape {
+   void draw();
+}
+```
+
+定义几个实现类：
+
+```java
+public class Circle implements Shape {
+    @Override
+    public void draw() {
+       System.out.println("Circle::draw()");
+    }
+}
+
+public class Rectangle implements Shape {
+    @Override
+    public void draw() {
+       System.out.println("Rectangle::draw()");
+    }
+}
+```
+
+客户端调用：
+
+```
+public static void main(String[] args) {
+    // 画一个圆形
+      Shape circle = new Circle();
+      circle.draw();
+
+      // 画一个长方形
+      Shape rectangle = new Rectangle();
+      rectangle.draw();
+}
+```
+
+以上是我们常写的代码，我们需要画圆就要先实例化圆，画长方形就需要先实例化一个长方形，然后再调用相应的 draw() 方法。
+
+下面，我们看看怎么用门面模式来让客户端调用更加友好一些。
+
+我们先定义一个门面：
+
+```java
+public class ShapeMaker {
+   private Shape circle;
+   private Shape rectangle;
+   private Shape square;
+
+   public ShapeMaker() {
+      circle = new Circle();
+      rectangle = new Rectangle();
+      square = new Square();
+   }
+
+  /**
+   * 下面定义一堆方法，具体应该调用什么方法，由这个门面来决定
+   */
+
+   public void drawCircle(){
+      circle.draw();
+   }
+   public void drawRectangle(){
+      rectangle.draw();
+   }
+   public void drawSquare(){
+      square.draw();
+   }
+}
+```
+
+看看现在客户端怎么调用：
+
+```
+public static void main(String[] args) {
+  ShapeMaker shapeMaker = new ShapeMaker();
+
+  // 客户端调用现在更加清晰了
+  shapeMaker.drawCircle();
+  shapeMaker.drawRectangle();
+  shapeMaker.drawSquare();        
+}
+```
+
+门面模式的优点显而易见，客户端不再需要关注实例化时应该使用哪个实现类，直接调用门面提供的方法就可以了，因为门面类提供的方法的方法名对于客户端来说已经很友好了。
 
 
 #### 组合模式
 
+组合模式用于表示具有层次结构的数据，使得我们对单个对象和组合对象的访问具有一致性。
+
+直接看一个例子吧，每个员工都有姓名、部门、薪水这些属性，同时还有下属员工集合（虽然可能集合为空），而下属员工和自己的结构是一样的，也有姓名、部门这些属性，同时也有他们的下属员工集合。
+
+```java
+public class Employee {
+   private String name;
+   private String dept;
+   private int salary;
+   private List<Employee> subordinates; // 下属
+
+   public Employee(String name,String dept, int sal) {
+      this.name = name;
+      this.dept = dept;
+      this.salary = sal;
+      subordinates = new ArrayList<Employee>();
+   }
+
+   public void add(Employee e) {
+      subordinates.add(e);
+   }
+
+   public void remove(Employee e) {
+      subordinates.remove(e);
+   }
+
+   public List<Employee> getSubordinates(){
+     return subordinates;
+   }
+
+   public String toString(){
+      return ("Employee :[ Name : " + name + ", dept : " + dept + ", salary :" + salary+" ]");
+   }   
+}
+```
+
+通常，这种类需要定义 add(node)、remove(node)、getChildren() 这些方法。
+
+这说的其实就是组合模式，这种简单的模式我就不做过多介绍了，相信各位读者也不喜欢看我写废话。
+
 
 #### 享元模式
+
+英文是 Flyweight Pattern，不知道是谁最先翻译的这个词，感觉这翻译真的不好理解，我们试着强行关联起来吧。Flyweight 是轻量级的意思，享元分开来说就是 共享 元器件，也就是复用已经生成的对象，这种做法当然也就是轻量级的了。
+
+复用对象最简单的方式是，用一个 HashMap 来存放每次新生成的对象。每次需要一个对象的时候，先到 HashMap 中看看有没有，如果没有，再生成新的对象，然后将这个对象放入 HashMap 中。
+
+这种简单的代码我就不演示了。
 
 
 **<h4>结构型模式总结</h4>**
@@ -770,7 +1062,6 @@ public static void main(String[] args) {
 代理模式是做方法增强的，适配器模式是把鸡包装成鸭这种用来适配接口的，桥梁模式做到了很好的解耦，装饰模式从名字上就看得出来，适合于装饰类或者说是增强类的场景，门面模式的优点是客户端不需要关心实例化过程，只要调用需要的方法即可，组合模式用于描述具有层次结构的数据，享元模式是为了在特定的场景中缓存已经创建的对象，用于提高性能。
 
 
-
 ### 行为型模式
 
 行为型模式关注的是各个类之间的相互作用，将职责划分清楚，使得我们的代码更加地清晰。
@@ -778,9 +1069,278 @@ public static void main(String[] args) {
 
 #### 策略模式
 
+策略模式太常用了，所以把它放到最前面进行介绍。它比较简单，我就不废话，直接用代码说事吧。
+
+下面设计的场景是，我们需要画一个图形，可选的策略就是用红色笔来画，还是绿色笔来画，或者蓝色笔来画。
+
+首先，先定义一个策略接口：
+
+```java
+public interface Strategy {
+   public void draw(int radius, int x, int y);
+}
+```
+
+然后我们定义具体的几个策略：
+
+```java
+public class RedPen implements Strategy {
+   @Override
+   public void draw(int radius, int x, int y) {
+      System.out.println("用红色笔画图，radius:" + radius + ", x:" + x + ", y:" + y);
+   }
+}
+public class GreenPen implements Strategy {
+   @Override
+   public void draw(int radius, int x, int y) {
+      System.out.println("用绿色笔画图，radius:" + radius + ", x:" + x + ", y:" + y);
+   }
+}
+public class BluePen implements Strategy {
+   @Override
+   public void draw(int radius, int x, int y) {
+      System.out.println("用蓝色笔画图，radius:" + radius + ", x:" + x + ", y:" + y);
+   }
+}
+```
+
+使用策略的类：
+
+```java
+public class Context {
+   private Strategy strategy;
+
+   public Context(Strategy strategy){
+      this.strategy = strategy;
+   }
+
+   public int executeDraw(int radius, int x, int y){
+      return strategy.draw(radius, x, y);
+   }
+}
+```
+
+客户端演示：
+
+```
+public static void main(String[] args) {
+    Context context = new Context(new BluePen()); // 使用绿色笔来画
+      context.executeDraw(10, 0, 0);
+}
+```
+
+放到一张图上，让大家看得清晰些：
+
+![策略模式](/images/strategy-1.png)
+
+这个时候，大家有没有联想到结构型模式中的桥梁模式，它们其实非常相似，我把桥梁模式的图拿过来大家对比下：
+
+![桥梁模式](/images/bridge-1.png)
+
+要我说的话，它们非常相似，桥梁模式在左侧加了一层抽象而已。桥梁模式的耦合更低，结构更复杂一些。
+
+
 #### 观察者模式
 
+观察者模式对于我们来说，真是再简单不过了。无外乎两个操作，观察者订阅自己关心的主题和主题有数据变化后通知观察者们。
+
+首先，需要定义主题，每个主题需要持有观察者列表的引用，用于在数据变更的时候通知各个观察者：
+
+```java
+public class Subject {
+    private List<Observer> observers = new ArrayList<Observer>();
+    private int state;
+    public int getState() {
+        return state;
+    }
+    public void setState(int state) {
+        this.state = state;
+        // 数据已变更，通知观察者们
+        notifyAllObservers();
+    }
+    // 注册观察者
+    public void attach(Observer observer) {
+        observers.add(observer);
+    }
+    // 通知观察者们
+    public void notifyAllObservers() {
+        for (Observer observer : observers) {
+            observer.update();
+        }
+    }
+}
+```
+
+定义观察者接口：
+
+```java
+public abstract class Observer {
+    protected Subject subject;
+    public abstract void update();
+}
+```
+
+其实如果只有一个观察者类的话，接口都不用定义了，不过，通常场景下，既然用到了观察者模式，我们就是希望一个事件出来了，会有多个不同的类需要处理相应的信息。比如，订单修改成功事件，我们希望发短信的类得到通知、发邮件的类得到通知、处理物流信息的类得到通知等。
+
+我们来定义具体的几个观察者类：
+
+```java
+public class BinaryObserver extends Observer {
+    // 在构造方法中进行订阅主题
+    public BinaryObserver(Subject subject) {
+        this.subject = subject;
+        // 通常在构造方法中将 this 发布出去的操作一定要小心
+        this.subject.attach(this);
+    }
+    // 该方法由主题类在数据变更的时候进行调用
+    @Override
+    public void update() {
+        String result = Integer.toBinaryString(subject.getState());
+        System.out.println("订阅的数据发生变化，新的数据处理为二进制值为：" + result);
+    }
+}
+
+public class HexaObserver extends Observer {
+    public HexaObserver(Subject subject) {
+        this.subject = subject;
+        this.subject.attach(this);
+    }
+    @Override
+    public void update() {
+        String result = Integer.toHexString(subject.getState()).toUpperCase();
+        System.out.println("订阅的数据发生变化，新的数据处理为十六进制值为：" + result);
+    }
+}
+```
+
+客户端使用也非常简单：
+
+```
+public static void main(String[] args) {
+    // 先定义一个主题
+    Subject subject1 = new Subject();
+    // 定义观察者
+    new BinaryObserver(subject1);
+    new HexaObserver(subject1);
+
+    // 模拟数据变更，这个时候，观察者们的 update 方法将会被调用
+    subject.setState(11);
+}
+```
+
+output:
+
+```
+订阅的数据发生变化，新的数据处理为二进制值为：1011
+订阅的数据发生变化，新的数据处理为十六进制值为：B
+```
+
+当然，jdk 也提供了相似的支持，具体的大家可以参考 java.util.Observable 和 java.util.Observer 这两个类。
+
+实际生产过程中，观察者模式往往用消息中间件来实现，如果要实现单机观察者模式，笔者建议读者使用 Guava 中的 EventBus，它有同步实现也有异步实现，本文主要介绍设计模式，就不展开说了。
+
+还有，即使是上面的这个代码，也会有很多变种，大家只要记住核心的部分，那就是一定有一个地方存放了所有的观察者，然后在事件发生的时候，遍历观察者，调用它们的回调函数。
+
+
 #### 责任链模式
+
+责任链通常需要先建立一个单向链表，然后调用方只需要调用头部节点就可以了，后面会自动流转下去。比如流程审批就是一个很好的例子，只要终端用户提交申请，根据申请的内容信息，自动建立一条责任链，然后就可以开始流转了。
+
+有这么一个场景，用户参加一个活动可以领取奖品，但是活动需要进行很多的规则校验然后才能放行，比如首先需要校验用户是否是新用户、今日参与人数是否有限额、全场参与人数是否有限额等等。设定的规则都通过后，才能让用户领走奖品。
+
+> 如果产品给你这个需求的话，我想大部分人一开始肯定想的就是，用一个 List 来存放所有的规则，然后 foreach 执行一下每个规则就好了。不过，读者也先别急，看看责任链模式和我们说的这个有什么不一样？
+
+
+首先，我们要定义流程上节点的基类：
+
+```java
+public abstract class RuleHandler {
+    // 后继节点
+    protected RuleHandler successor;
+
+    public abstract void apply(Context context);
+
+    public void setSuccessor(RuleHandler successor) {
+        this.successor = successor;
+    }
+
+    public RuleHandler getSuccessor() {
+        return successor;
+    }
+}
+```
+
+接下来，我们需要定义具体的每个节点了。
+
+校验用户是否是新用户：
+
+```java
+public class NewUserRuleHandler extends RuleHandler {
+    public void apply(Context context) {
+        if (context.isNewUser()) {
+            // 如果有后继节点的话，传递下去
+            if (this.getSuccessor() != null) {
+                this.getSuccessor().apply(context);
+            }
+        } else {
+            throw new RuntimeException("该活动仅限新用户参与");
+        }
+    }
+}
+```
+
+校验用户所在地区是否可以参与：
+
+```java
+public class LocationRuleHandler extends RuleHandler {
+    public void apply(Context context) {
+        boolean allowed = activityService.isSupportedLocation(context.getLocation);
+        if (allowed) {
+            if (this.getSuccessor() != null) {
+                this.getSuccessor().apply(context);
+            }
+        } else {
+            throw new RuntimeException("非常抱歉，您所在的地区无法参与本次活动");
+        }
+    }
+}
+```
+
+校验奖品是否已领完：
+
+```java
+public class LimitRuleHandler extends RuleHandler {
+    public void apply(Context context) {
+        int remainedTimes = activityService.queryRemainedTimes(context); // 查询剩余奖品
+        if (remainedTimes > 0) {
+            if (this.getSuccessor() != null) {
+                this.getSuccessor().apply(userInfo);
+            }
+        } else {
+            throw new RuntimeException("您来得太晚了，奖品被领完了");
+        }
+    }
+}
+```
+
+客户端：
+
+```
+public static void main(String[] args) {
+    RuleHandler newUserHandler = new NewUserRuleHandler();
+    RuleHandler locationHandler = new LocationRuleHandler();
+    RuleHandler limitHandler = new LimitRuleHandler();
+
+    // 假设本次活动仅校验地区和奖品数量，不校验新老用户
+    locationHandler.setSuccessor(limitHandler);
+
+    locationHandler.apply(context);
+}
+```
+
+代码其实很简单，就是先定义好一个链表，然后在通过任意一节点后，如果此节点有后继节点，那么传递下去。
+
+至于它和我们前面说的用一个 List 存放需要执行的规则的做法有什么异同，留给读者自己琢磨吧。
 
 
 #### 模板方法模式
