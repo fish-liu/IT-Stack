@@ -1,22 +1,11 @@
-- java基础
+- [RabbitMq](mq/rabbit/)
 
-  - [jvm](/java/jvm1.md)
-  - [多线程](/java/threads.md)
-  - [Custom navbar](custom-navbar.md)
-  - [Cover page](cover.md)
+  - [Rabbit架构设计](mq/rabbit/design.md)
+  - [Rabbit高可用](mq/rabbit/use.md)
+  - [Rabbit集群](mq/rabbit/cluster.md)
+  - [Rabbit消息模型](mq/rabbit/messagetype.md)
 
-- 框架相关
-
-  - [Spring](configuration.md)
-  - [SpringBoot](themes.md)
-  - [Mybatis](plugins.md)
 
 - 面试题整理
 
-  - [Deploy](deploy.md)
-  - [Helpers](helpers.md)
-  - [Vue compatibility](vue.md)
-  - [CDN](cdn.md)
-  - [Offline Mode(PWA)](pwa.md)
-  - [Server-Side Rendering(SSR)](ssr.md)
-  - [Embed Files](embed-files.md)
+  - [面试题](mq/rabbit/qa.md)
