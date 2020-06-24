@@ -7,4 +7,4 @@
 
 - 面试题整理
 
-  - [面试题1](deploy.md)
+  - [面试题](framework/mybatis/qa.md)
