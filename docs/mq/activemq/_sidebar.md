@@ -1,22 +1,8 @@
-- java基础
+- ActiveMQ知识体系
 
-  - [jvm](/java/jvm1.md)
-  - [多线程](/java/threads.md)
-  - [Custom navbar](custom-navbar.md)
-  - [Cover page](cover.md)
+  - [ActiveMQ架构设计](mq/activemq/design.md)
 
-- 框架相关
-
-  - [Spring](configuration.md)
-  - [SpringBoot](themes.md)
-  - [Mybatis](plugins.md)
 
 - 面试题整理
 
-  - [Deploy](deploy.md)
-  - [Helpers](helpers.md)
-  - [Vue compatibility](vue.md)
-  - [CDN](cdn.md)
-  - [Offline Mode(PWA)](pwa.md)
-  - [Server-Side Rendering(SSR)](ssr.md)
-  - [Embed Files](embed-files.md)
+  - [面试题](mq/activemq/qa.md)

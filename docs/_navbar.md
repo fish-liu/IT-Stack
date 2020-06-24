@@ -15,9 +15,10 @@
   * [服务治理](distri/soa/)
   
 * 消息队列
-  * [kafka](mq/kafka/)
-  * [activemq](mq/activemq/)
-  * [rabbit](mq/rabbit/)
+  * [Kafka](mq/kafka/)
+  * [RabbitMQ](mq/rabbit/)
+  * [RocketMQ](mq/rocketmq/)
+  * [Activemq](mq/activemq/)
   
 * 存储  
   * [redis](db/redis/)

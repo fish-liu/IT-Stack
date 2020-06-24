@@ -1,19 +1,10 @@
 - Kafka知识体系
 
-  - [Custom navbar](custom-navbar.md)
-  - [Cover page](cover.md)
+  - [Kafka架构设计](mq/kafka/design.md)
+  - [Kafka存储](mq/kafka/file.md)
 
-- 框架相关
-
-  - [Spring](configuration.md)
-  - [SpringBoot](themes.md)
 
 - 面试题整理
 
-  - [Deploy](deploy.md)
-  - [Helpers](helpers.md)
-  - [Vue compatibility](vue.md)
-  - [CDN](cdn.md)
-  - [Offline Mode(PWA)](pwa.md)
-  - [Server-Side Rendering(SSR)](ssr.md)
-  - [Embed Files](embed-files.md)
+  - [面试题](mq/kafka/qa.md)
+
