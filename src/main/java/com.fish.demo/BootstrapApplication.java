@@ -1,0 +1,33 @@
+package com.fish.demo;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.io.File;
+
+/**
+ * 启动类
+ *
+ */
+@SpringBootApplication
+public class BootstrapApplication {
+    public static void main( String[] args ) {
+        //设置启动之后的日志路径
+        setLogPath();
+        //jar包形式的启动类，是以main为入口的
+        SpringApplication.run(BootstrapApplication.class,args);
+    }
+
+    /**
+     * 设置jar 包启动时，log4j的目录
+     */
+    private static void setLogPath(){
+        String loggingPath = System.getProperty("logging.path");
+        if(null == loggingPath || "".equals(loggingPath)){
+            System.setProperty("logging.path",System.getProperty("user.dir")+ File.separator +"logs");
+        }
+    }
+}
+
+
+
