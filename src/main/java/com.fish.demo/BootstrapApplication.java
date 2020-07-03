@@ -16,6 +16,8 @@ public class BootstrapApplication {
         setLogPath();
         //jar包形式的启动类，是以main为入口的
         SpringApplication.run(BootstrapApplication.class,args);
+
+        // Load Balance策略（支持灵活的FailOver和FailFast HA策略，以及Round Robin、LRU、Consistent Hash等Load Balance策略）
     }
 
     /**

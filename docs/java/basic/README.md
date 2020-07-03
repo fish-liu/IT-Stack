@@ -9,6 +9,11 @@
 
 ### [Java值传递](java/basic/callbyvalue.md)
 
+
+### [Java String分析](java/basic/string.md)
+
+### [Java常量池](java/basic/constantpool.md)
+
 ### [Java反射]
 
 https://www.cnblogs.com/luoxn28/p/5686794.html
