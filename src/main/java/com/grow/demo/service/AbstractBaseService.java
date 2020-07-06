@@ -1,6 +1,6 @@
 package com.grow.demo.service;
 
-import com.grow.demo.util.BaseDao;
+import com.grow.demo.dao.BaseDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
