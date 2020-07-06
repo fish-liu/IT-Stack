@@ -1,4 +1,4 @@
-package com.fish.demo.config.swagger2;
+package com.grow.demo.config.swagger2;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

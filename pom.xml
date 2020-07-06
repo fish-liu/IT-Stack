@@ -4,12 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.fish.framework</groupId>
+  <groupId>com.grow.framework</groupId>
   <artifactId>demo</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <name>demo</name>
-  <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
   <properties>
@@ -51,6 +50,26 @@
     </dependency>
 
 
+    <!-- 数据源相关配置 -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.18</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.mybatis.spring.boot</groupId>
+      <artifactId>mybatis-spring-boot-starter</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.tomcat</groupId>
+      <artifactId>tomcat-jdbc</artifactId>
+      <version>9.0.24</version>
+    </dependency>
+    <!-- 数据源相关配置 -->
+
     <!-- 加入 swagger-bootstrap-ui -->
     <dependency>
       <groupId>com.github.xiaoymin</groupId>
@@ -88,6 +107,19 @@
     </dependency>
 
 
+    <!-- JWT 使用，token的验证 ，替代session存储信息 -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.10</version>
+    </dependency>
+
 
   </dependencies>
 
@@ -98,7 +130,7 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <!-- 指定启动类，springboot的配置启动类 -->
-          <mainClass>com.fish.demo.BootstrapApplication</mainClass>
+          <mainClass>com.grow.demo.BootstrapApplication</mainClass>
           <!-- 打包的目录，新版framework 项目的发布规范 -->
           <outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
         </configuration>
