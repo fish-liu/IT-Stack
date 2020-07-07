@@ -3,7 +3,6 @@ package com.grow.demo.common.enums;
 /**
  * 文件类型的枚举类
  * @author liuxw
- * @date 2020/7/7
  * @since 1.0
  */
 public enum FileTypeEnum {

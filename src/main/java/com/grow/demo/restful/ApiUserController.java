@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author liuxw
- * @date 2020/7/7
  * @since 1.0
  */
 @Api(tags = "user 接口API")

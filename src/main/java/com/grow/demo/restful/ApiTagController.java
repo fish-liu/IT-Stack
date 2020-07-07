@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 /**
  * @author liuxw
- * @date 2020/7/7
  * @since 1.0
  */
 @Api(tags = "tag 接口API")

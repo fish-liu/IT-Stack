@@ -2,19 +2,17 @@ package com.grow.demo.restful;
 
 import com.grow.demo.common.ConResult;
 import com.grow.demo.common.enums.StatusEnum;
-import com.grow.demo.model.Category;
+import com.grow.demo.model.vo.ArticleFormParams;
 import com.grow.demo.model.vo.ArticleVo;
 import com.grow.demo.service.ArticleService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * @author liuxw
- * @date 2020/7/7
  * @since 1.0
  */
 @Api(tags = "article 接口API")
@@ -26,27 +24,10 @@ public class ApiArticleController {
     private ArticleService articleService;
 
     @ApiOperation(value = "添加article",notes = "用户id，category名称不能为空")
-    @ApiImplicitParams({
-            @ApiImplicitParam(paramType="query", name = "uid", value = "用户id", required = true, dataType = "Integer"),
-            @ApiImplicitParam(paramType="query", name = "categoryName", value = "category名称", required = true, dataType = "String")
-    })
+    @ApiImplicitParam(name = "article", value = "article表单提交", required = true, dataType = "ArticleFormParams")
     @RequestMapping(value = "/add",method = RequestMethod.POST)
-    public ConResult addArticle(@RequestParam("uid") Integer uid,
-                                 @RequestParam("categoryName") String categoryName){
+    public ConResult addArticle(ArticleFormParams article){
 
-        if(uid == null || uid == 0){
-            return ConResult.fail("用户id不正确");
-        }
-
-        if(StringUtils.isEmpty(categoryName)){
-            return ConResult.fail("分类名称不能为空");
-        }
-
-        Category category = Category.builder()
-                .uid(uid)
-                .categoryName(categoryName)
-                .status(StatusEnum.NORMAL.getCode())
-                .build();
 
         //if(articleService.save(category) > 0){
         //    return ConResult.success(category.getId());

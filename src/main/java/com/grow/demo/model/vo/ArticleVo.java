@@ -1,13 +1,15 @@
 package com.grow.demo.model.vo;
 
+import io.swagger.annotations.ApiModel;
+
 import java.util.Date;
 import java.util.List;
 
 /**
  * @author liuxw
- * @date 2020/7/7
  * @since 1.0
  */
+@ApiModel
 public class ArticleVo {
 
     private Integer id;
