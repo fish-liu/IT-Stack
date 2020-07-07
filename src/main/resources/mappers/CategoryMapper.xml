@@ -3,39 +3,41 @@
 
 <mapper namespace="com.grow.demo.dao.ICategoryDao">
 
-    <!--<insert id="save" parameterType="com.ucarinc.framework.looker.server.model.OperationRecord">
-        insert into looker_operation_record (instance_id,project_name,business_line,framework_version,ip,service_url,url,param,email,user_name,role,create_time)
-        values(#{instanceId},#{projectName},#{businessLine},#{frameworkVersion},#{ip},#{serviceUrl},#{url},#{param},#{email},#{userName},#{role},#{createTime})
+    <resultMap id="CategoryVoMap" type="com.grow.demo.model.vo.CategoryVo">
+        <id column="id" property="id"/>
+        <result column="cateName" property="cateName"/>
+        <result column="status" property="status"/>
+        <result column="uid" property="uid"/>
+        <collection property="list" ofType="com.grow.demo.model.vo.TagsVo">
+            <id column="tagId" property="tagId"/>
+            <result column="tagName" property="tagName"/>
+            <result column="cateId" property="cateId"/>
+            <result column="uid" property="uid"/>
+        </collection>
+    </resultMap>
+
+    <select id="getCategoryList" resultMap="CategoryVoMap">
+        select cate.id as id,cate.category_name as cateName, cate.`status`,cate.uid,tag.id as tagId,tag.tag_name tagName, tag.cate_id cateId
+        from grow_category cate
+        left join grow_tag tag on cate.id = tag.cate_id and cate.uid = tag.uid
+        where cate.uid = #{uid} and tag.status = 0 and cate.status != 2
+    </select>
+
+    <insert id="save" parameterType="com.grow.demo.model.Category">
+        insert into grow_category (category_name,uid,`status`,create_time,update_time)
+        SELECT #{categoryName},#{uid},#{status},now(),#{updateTime} from dual
+        where not exists (select * from grow_category where uid = #{uid} and category_name = #{categoryName})
         <selectKey keyProperty="id" resultType="java.lang.Integer">
             select LAST_INSERT_ID() as id
         </selectKey>
     </insert>
 
+    <update id="updateStatusById">
+        update grow_category set status = #{status} , update_time = now() where id = #{id}
+    </update>
 
-    <select id="getList" resultType="com.ucarinc.framework.looker.server.model.OperationRecord" parameterType="java.util.Map">
-        select id,instance_id instanceId,project_name projectName,business_line businessLine,framework_version frameworkVersion,ip,service_url serviceUrl,
-              url, param,email, user_name userName, role ,create_time createTime
-        from looker_operation_record
-        where 1 = 1
-        <if test="projectName != '' ">
-            and project_name like '${projectName}%'
-        </if>
-        <if test="ip != '' ">
-            and ip like '${ip}%'
-        </if>
-        order by create_time desc
-        limit #{startPage} ,#{pageSize}
-    </select>
-
-    <select id="getListCount" resultType="java.lang.Integer" parameterType="java.util.Map">
-        select count(id) from looker_operation_record
-        where 1 = 1
-        <if test="projectName != '' ">
-            and project_name like '${projectName}%'
-        </if>
-        <if test="ip != '' ">
-            and ip like '${ip}%'
-        </if>
-    </select>-->
+    <delete id="deleteById" >
+        update grow_category set status = 2 , update_time = now() where id = #{id}
+    </delete>
 
 </mapper>

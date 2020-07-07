@@ -3,64 +3,26 @@
 
 <mapper namespace="com.grow.demo.dao.ITagDao">
 
-    <insert id="save" parameterType="com.grow.demo.model.Tag">
+    <insert id="save" parameterType="com.grow.demo.model.Tags">
         insert into grow_tag (tag_name,cate_id,uid,`status`,create_time,update_time)
-        SELECT #{tagName},#{cateId},#{uid},#{status},now(),#{updateTime} from dual
+        SELECT #{tagName},#{cateId},#{uid},#{status},now(),now() from dual
         where not exists (select * from grow_tag where uid = #{uid} and cate_id = #{cateId} and tag_name = #{tagName} )
         <selectKey keyProperty="id" resultType="java.lang.Integer">
             select LAST_INSERT_ID() as id
         </selectKey>
     </insert>
 
-<!--
-    <update id="update" parameterType="com.ucarinc.framework.looker.server.model.ProjectInfo">
-      update looker_project_info set `status` = #{status} , framework_version = #{frameworkVersion},version = #{version},tags = #{tags}, service_url = #{serviceUrl}, update_time = now()
-      where instance_id = #{instanceId}
+    <update id="update" parameterType="com.grow.demo.model.Tags">
+      update grow_tag set tag_name = #{tagName}, update_time = now()
+      where id = #{id}
     </update>
-
-    <select id="getProjectByInstanceId" parameterType="java.lang.String" resultType="com.ucarinc.framework.looker.server.model.ProjectInfo">
-        select id,instance_id instanceId,project_name projectName,business_line businessLine,ip,`status`,service_url serviceUrl,
-              health_url healthUrl,management_url managementUrl,framework_version frameworkVersion,`version`,tags,create_time createTime,update_time updateTime
-        from looker_project_info
-        where instance_id = #{instanceId}
-    </select>
-
-
-    <select id="getList" resultType="com.ucarinc.framework.looker.server.model.ProjectInfo">
-        select id,instance_id instanceId,project_name projectName,business_line businessLine,ip,`status`,service_url serviceUrl,
-              health_url healthUrl,management_url managementUrl,framework_version frameworkVersion, `version`,tags,create_time createTime,update_time updateTime
-        from looker_project_info
-        where instance_id in
-        <foreach collection="instanceIds" item="instanceId" index="index" open="(" close=")" separator=",">
-            #{instanceId}
-        </foreach>
-    </select>
-
-    <select id="getAllInstanceIds" resultType="java.lang.String">
-        select instance_id instanceId  from looker_project_info
-    </select>
-
-    <delete id="deleteByInstanceId" >
-        delete  FROM looker_project_info where instance_id = #{instanceId}
+    
+    <update id="updateStatusById">
+        update grow_tag set status = #{status} , update_time = now() where id = #{id}
+    </update>
+    
+    <delete id="deleteById" >
+        update grow_tag set status = 2 , update_time = now() where id = #{id}
     </delete>
-
-    <delete id="batchDelete">
-        delete  FROM looker_project_info where instance_id IN
-        <foreach collection="instanceIds" item="instanceId" index="index" open="(" close=")" separator=",">
-            #{instanceId}
-        </foreach>
-    </delete>
-
-    <select id="getVersionList" resultType="com.ucarinc.framework.looker.server.model.ProjectInfo">
-        select id,instance_id instanceId,project_name projectName,business_line businessLine,ip,`status`,
-               framework_version frameworkVersion,`version`,tags,create_time createTime,update_time updateTime
-        from looker_project_info
-        <if test="busiLine != '' and busiLine != null" >
-            where business_line = #{busiLine}
-        </if>
-        order by update_time desc
-
-    </select>
--->
 
 </mapper>

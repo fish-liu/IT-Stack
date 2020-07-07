@@ -1,6 +1,6 @@
 package com.grow.demo.controller;
 
-import com.grow.demo.model.Tag;
+import com.grow.demo.model.Tags;
 import com.grow.demo.service.TagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,10 +25,10 @@ public class TagController {
     @ApiOperation(value = "保存标签",notes = "不需要参数")
     @RequestMapping(value = "/save",method = RequestMethod.GET)
     public int save(){
-        Tag tag = new Tag();
-        tag.setCateId(1);
+        Tags tag = Tags.builder().cateId(1).tagName("tag1").uid(1).build();
+        /*tag.setCateId(1);
         tag.setTagName("tag1");
-        tag.setUid(1);
+        tag.setUid(1);*/
 
         tagService.save(tag);
         return 1;

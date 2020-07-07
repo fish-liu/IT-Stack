@@ -1,5 +1,7 @@
 package com.grow.demo.dao;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
  * @author liuxw
  * @since 1.0
@@ -26,13 +28,13 @@ public interface BaseDao<T> {
      * @param status
      * @return
      */
-    int updateStatusById(Integer id,int status);
+    int updateStatusById(@Param("id") Integer id,@Param("status") int status);
 
     /**
      * 根据id 删除记录
      * @param id
      * @return
      */
-    int deleteById(Integer id);
+    int deleteById(@Param("id") Integer id);
 
 }

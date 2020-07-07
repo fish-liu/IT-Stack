@@ -3,6 +3,28 @@
 
 <mapper namespace="com.grow.demo.dao.IArticleDao">
 
+
+    <insert id="save" parameterType="com.grow.demo.model.Article">
+        insert into grow_article (content,img_ids,uid,cate_id,location,visibility,`status`,publish_time,create_time,update_time)
+        values(#{content},#{imgIds},#{uid},#{cateId},#{location},#{visibility},#{status},#{publishTime},now(),now())
+        <selectKey keyProperty="id" resultType="java.lang.Integer">
+            select LAST_INSERT_ID() as id
+        </selectKey>
+    </insert>
+
+    <update id="update" parameterType="com.grow.demo.model.Article">
+        update grow_article set content = #{content},cate_id=${cateId}, visibility = #{visibility} ,publish_time = #{publishTime}, update_time = now()
+        where id = #{id}
+    </update>
+
+    <update id="updateStatusById">
+        update grow_article set status = #{status} , update_time = now() where id = #{id}
+    </update>
+
+    <delete id="deleteById" >
+        update grow_article set status = 2 , update_time = now() where id = #{id}
+    </delete>
+
     <!--<insert id="save" parameterType="com.ucarinc.framework.looker.server.model.OperationRecord">
         insert into looker_operation_record (instance_id,project_name,business_line,framework_version,ip,service_url,url,param,email,user_name,role,create_time)
         values(#{instanceId},#{projectName},#{businessLine},#{frameworkVersion},#{ip},#{serviceUrl},#{url},#{param},#{email},#{userName},#{role},#{createTime})

@@ -1,6 +1,6 @@
 package com.grow.demo.dao;
 
-import com.grow.demo.model.Tag;
+import com.grow.demo.model.Tags;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface ITagDao extends BaseDao<Tag> {
+public interface ITagDao extends BaseDao<Tags> {
 
 
 

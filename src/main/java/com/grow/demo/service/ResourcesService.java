@@ -1,19 +1,19 @@
 package com.grow.demo.service;
 
-import com.grow.demo.dao.ITagDao;
-import com.grow.demo.model.Tags;
+import com.grow.demo.dao.IResourcesDao;
+import com.grow.demo.model.Resources;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
  * @author liuxw
- * @date 2020/7/6
+ * @date 2020/7/7
  * @since 1.0
  */
 @Service
-public class TagService extends AbstractBaseService<Tags> {
+public class ResourcesService extends AbstractBaseService<Resources> {
 
     @Autowired
-    private ITagDao iTagDao;
+    private IResourcesDao iResourcesDao;
 
 }
