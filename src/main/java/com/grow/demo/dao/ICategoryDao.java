@@ -17,7 +17,7 @@ import java.util.List;
 public interface ICategoryDao extends BaseDao<Category> {
 
     /**
-     * 获取分类列表
+     * 获取公共的分类及私有的分类
      * @param uid
      * @return
      */

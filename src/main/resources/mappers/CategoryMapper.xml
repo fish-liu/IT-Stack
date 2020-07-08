@@ -3,29 +3,16 @@
 
 <mapper namespace="com.grow.demo.dao.ICategoryDao">
 
-    <resultMap id="CategoryVoMap" type="com.grow.demo.model.vo.CategoryVo">
-        <id column="id" property="id"/>
-        <result column="cateName" property="cateName"/>
-        <result column="status" property="status"/>
-        <result column="uid" property="uid"/>
-        <collection property="list" ofType="com.grow.demo.model.vo.TagsVo">
-            <id column="tagId" property="tagId"/>
-            <result column="tagName" property="tagName"/>
-            <result column="cateId" property="cateId"/>
-            <result column="uid" property="uid"/>
-        </collection>
-    </resultMap>
-
-    <select id="getCategoryList" resultMap="CategoryVoMap">
-        select cate.id as id,cate.category_name as cateName, cate.`status`,cate.uid,tag.id as tagId,tag.tag_name tagName, tag.cate_id cateId
-        from grow_category cate
-        left join grow_tag tag on cate.id = tag.cate_id and cate.uid = tag.uid
-        where cate.uid = #{uid} and tag.status = 0 and cate.status != 2
+    <!-- 公共分类 +  私有分类 -->
+    <select id="getCategoryList" resultType="com.grow.demo.model.vo.CategoryVo">
+        select id,category_name,uid,type,`status`  from  grow_category  where type = 1 and `status` = 0
+        UNION
+        select id,category_name,uid,type,`status`  from  grow_category  where uid = #{uid} and  type = 2 and `status` = 0
     </select>
 
     <insert id="save" parameterType="com.grow.demo.model.Category">
-        insert into grow_category (category_name,uid,`status`,create_time,update_time)
-        SELECT #{categoryName},#{uid},#{status},now(),#{updateTime} from dual
+        insert into grow_category (category_name,uid,`type`,`status`,create_time,update_time)
+        SELECT #{categoryName},#{uid},#{type},#{status},now(),#{updateTime} from dual
         where not exists (select * from grow_category where uid = #{uid} and category_name = #{categoryName})
         <selectKey keyProperty="id" resultType="java.lang.Integer">
             select LAST_INSERT_ID() as id

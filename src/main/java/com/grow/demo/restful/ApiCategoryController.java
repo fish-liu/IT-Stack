@@ -1,6 +1,7 @@
 package com.grow.demo.restful;
 
 import com.grow.demo.common.ConResult;
+import com.grow.demo.common.enums.CategoryTypeEnum;
 import com.grow.demo.common.enums.StatusEnum;
 import com.grow.demo.model.Category;
 import com.grow.demo.model.vo.CategoryVo;
@@ -43,6 +44,7 @@ public class ApiCategoryController {
 
         Category category = Category.builder()
                 .uid(uid)
+                .type(CategoryTypeEnum.PRIVATE.getCode())
                 .categoryName(categoryName)
                 .status(StatusEnum.NORMAL.getCode())
                 .build();
@@ -77,8 +79,31 @@ public class ApiCategoryController {
      * 修改Category，暂时用不到
      * @return
      */
-    public ConResult updateCategory(){
-        return ConResult.success();
+    @ApiOperation(value = "修改category",notes = "根据categoryId修改category名称")
+    @ApiImplicitParams({
+            @ApiImplicitParam(paramType="query", name = "id", value = "用户id", required = true, dataType = "Integer"),
+            @ApiImplicitParam(paramType="query", name = "categoryName", value = "category名称", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/update",method = RequestMethod.POST)
+    public ConResult updateCategory(
+            @RequestParam(value="id") Integer id,
+            @RequestParam(value="categoryName") String categoryName
+            ){
+
+        if(id == null || id == 0){
+            return ConResult.fail("id不正确");
+        }
+
+        if(StringUtils.isEmpty(categoryName)){
+            return ConResult.fail("分类名称不能为空");
+        }
+
+        Category category = Category.builder().id(id).categoryName(categoryName).build();
+        if(categoryService.update(category)>0){
+            return ConResult.success("修改成功",null);
+        }else {
+            return ConResult.fail("修改失败");
+        }
     }
 
 

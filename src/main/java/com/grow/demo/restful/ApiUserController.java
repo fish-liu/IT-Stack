@@ -35,6 +35,7 @@ public class ApiUserController {
     @ApiOperation(value="用户登录", notes="用户登录")
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public ConResult login(){
+
         return ConResult.success();
     }
 
@@ -72,7 +73,6 @@ public class ApiUserController {
         if(password.equals(newPassword)){
             return "新旧密码不能相同";
         }
-
 
         User user = userService.getUserById(userId);
         if(user!=null){

@@ -25,7 +25,7 @@ public class TagController {
     @ApiOperation(value = "保存标签",notes = "不需要参数")
     @RequestMapping(value = "/save",method = RequestMethod.GET)
     public int save(){
-        Tags tag = Tags.builder().cateId(1).tagName("tag1").uid(1).build();
+        Tags tag = Tags.builder().tagName("tag1").uid(1).build();
         /*tag.setCateId(1);
         tag.setTagName("tag1");
         tag.setUid(1);*/

@@ -1,5 +1,6 @@
 package com.grow.demo.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
  * @since 1.0
  */
 @Data
+@Builder
 public class Article{
 
     private Integer id;

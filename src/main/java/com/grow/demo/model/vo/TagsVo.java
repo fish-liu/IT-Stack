@@ -25,10 +25,10 @@ public class TagsVo {
     private String tagName;
 
     /**
-     * 标签所属的分类
+     * 类型，（1=公共标签，2=私有标签）
      */
-    @ApiModelProperty(value = "分类id",dataType = "Integer")
-    private Integer cateId;
+    @ApiModelProperty(value = "类型",dataType = "int")
+    private int type;
 
     /**
      * 用户id

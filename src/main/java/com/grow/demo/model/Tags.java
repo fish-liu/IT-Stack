@@ -24,12 +24,18 @@ public class Tags {
     private String tagName;
 
     /**
-     * 标签所属的分类
+     * 分组id
      */
-    private Integer cateId;
+    private int groupId;
+
 
     /**
-     * 用户id
+     * 类型，（1=公共标签，2=私有标签）
+     */
+    private int type;
+
+    /**
+     * 用户id，私有分类时，该字段有值。
      */
     private Integer uid;
 

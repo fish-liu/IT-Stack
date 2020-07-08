@@ -4,8 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * @author liuxw
  * @since 1.0
@@ -39,7 +37,8 @@ public class CategoryVo {
     private int status;
 
     /**
-     * tag状态
+     * 类型
      */
-    private List<TagsVo> list;
+    @ApiModelProperty(value="类型", dataType = "int")
+    private int type;
 }
