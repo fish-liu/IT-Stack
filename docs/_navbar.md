@@ -31,6 +31,6 @@
   * [linux](others/linux/)
   * [操作系统](others/system/)
   * [数据结构](others/ds/)
-  * [算法](others/algorithm/)
+  * [算法](others/leetcode/)
   * [设计模式](others/design/)
   * [Maven](others/maven/)
