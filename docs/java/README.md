@@ -32,3 +32,8 @@ https://blog.csdn.net/lxx19941220/article/details/92587043
 可以看看
 https://honeypps.com/categories/Java/
 
+
+
+从零开始玩转JMX(一)——简介和Standard MBean
+https://honeypps.com/java/jmx-quick-start-1-standard-mbean/
+
