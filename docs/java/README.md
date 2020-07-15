@@ -37,3 +37,13 @@ https://honeypps.com/categories/Java/
 从零开始玩转JMX(一)——简介和Standard MBean
 https://honeypps.com/java/jmx-quick-start-1-standard-mbean/
 
+
+JVM类加载器是否可以加载自定义的String
+
+https://www.cnblogs.com/idea360/p/12377464.html
+
+
+
+java 内部类和静态内部类的区别
+https://www.cnblogs.com/aademeng/articles/6192954.html
+

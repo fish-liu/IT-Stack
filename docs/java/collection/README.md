@@ -97,6 +97,11 @@ jdk1.7和1.8的Hashmap区别
 
 [HashMap](java/collection/hashmap.md)
 
+[HashMap7](java/collection/hashmap7.md)
+
+[LinkedHashMap7](java/collection/linkedhashmap7.md)
+
+
 [ConcurrentHashMap](java/collection/concurrenthashmap.md)
 
 HashMap的实现原理--链表散列
