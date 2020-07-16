@@ -101,6 +101,7 @@ jdk1.7和1.8的Hashmap区别
 
 [LinkedHashMap7](java/collection/linkedhashmap7.md)
 
+[ArrayList](java/collection/arraylist.md)
 
 [ConcurrentHashMap](java/collection/concurrenthashmap.md)
 

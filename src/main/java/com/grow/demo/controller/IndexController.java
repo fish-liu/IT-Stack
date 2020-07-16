@@ -6,6 +6,7 @@ import com.grow.demo.common.enums.TagGroupEnum;
 import com.grow.demo.common.enums.TagsTypeEnum;
 import com.grow.demo.model.Category;
 import com.grow.demo.model.Tags;
+import com.grow.demo.restful.TaskTest;
 import com.grow.demo.service.CategoryService;
 import com.grow.demo.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class IndexController {
     @RequestMapping("/test1")
     @ResponseBody
     public String test1(){
+
+        TaskTest taskTest = new TaskTest();
+        taskTest.test();
         return "test1";
     }
 
