@@ -19,21 +19,7 @@ public class Test {
             public void run (){
                 System.out.println("thread name: " + Thread.currentThread().getName());
 
-                Thread.sleep(10000);
-                /*try {
-                    Thread.sleep(10000);
-                }catch (Exception e){
-                    System.out.println("--------"+e);
-                }*/
-
-//                for (int i = 10000; i > 0; i--) {
-//
-//                    if (100 % i == 0 ) {
-//                        System.out.println("--------"+i);
-//                    }
-//                }
-//                while (true){}
-
+                //2PC或是Paxos协议保证一致性
 
             }
             public void test() throws InterruptedException{
