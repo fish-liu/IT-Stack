@@ -23,4 +23,11 @@ activemq、rabbitmq、kafka原理和比较
 https://blog.csdn.net/lifaming15/article/details/79942793
 
 
+RabbitMQ 高可用集群
+https://www.jianshu.com/p/97fbf9c82872
+
+
+HAProxy从零开始到掌握
+https://www.jianshu.com/p/c9f6d55288c0
+
 
