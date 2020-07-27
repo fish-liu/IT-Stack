@@ -1,6 +1,6 @@
 - 知识点
 
-  - [框架设计](/java/jvm1.md)
+  - [框架设计](distri/dubbo/design.md)
   - [知识点2](/java/threads.md)
   - [知识点3](custom-navbar.md)
 
