@@ -6,3 +6,19 @@ Mybatis传多个参数（三种解决方案）
 https://blog.csdn.net/liangyihuai/article/details/49965869
 
 
+
+用过mybatis是否知道Mapper接口的原理吗?(如果回答得不错,并且提到动态代理这个关键词会继续往下问,那这个动态代理又是如何通过依赖注入到Mapper接口的呢?)
+mapper原理：Mybatis调用sqlsession.getMapper(Class)方法，拿到mapper实例，内部逻辑如下：
+
+解析请求路径，根据xml配置找到mapper文件
+通过mapperRegistry注册mapper到mapperProxyFactory，获取节点属性并解析sql创建statement
+通过mapperProxyFactory的newInstance方法获取mapper实例，实现方式是动态代理
+从Spring中获取mapper接口动态代理类时会调用MapperFactoryBean的getObjects方法，并最终调用到mapperRegistry中的getMapper方法调用mapperProxyFactory的newInstance生成对应的MapperProxy即Mapper接口的动态代理，可以看到，这里就调用了MapperProxyFactory的newInstance方法获取到对应Mapper接口的动态代理类了，至此，我们基本完成了将Mapper接口注册到Spring的过程
+
+
+
+
+
+
+
+
