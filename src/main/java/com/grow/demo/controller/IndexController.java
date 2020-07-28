@@ -33,6 +33,11 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @RequestMapping("/test1")
     @ResponseBody
     public String test1(){
