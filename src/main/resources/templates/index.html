@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <link rel="stylesheet" type="text/css" href="./static/semantic.min.css" />
+    <link rel="stylesheet" type="text/css" href="./static/semantic/semantic.min.css" />
+
+    <style>
+        .highlighted {
+            background-color: #9AB6F1;
+        }
+    </style>
 
 </head>
 <body>
 
-semantic文档地址： https://zijieke.com/semantic-ui/usage/theming.php
 
-semantic网上的例子参考： https://blog.csdn.net/qq_46101869/article/details/107582966
 
 <div class="ui labeled button" tabindex="0">
     <div class="ui red button">
@@ -30,8 +34,12 @@ semantic网上的例子参考： https://blog.csdn.net/qq_46101869/article/detai
     </a>
 </div>
 
+<br/>
+<br/><br/><br/>
 
-hello world
+
+
+
 
 <button onclick="download()"> 文件下载</button>
 
@@ -40,6 +48,63 @@ hello world
 <br/>
 
 <br/>
+
+<div class="Containers">
+    <div class="ui five column grid" id="gridDemo">
+        <div class="column moved">
+            <div class="ui segment">
+                1
+            </div>
+        </div>
+        <div class="column moved">
+            <div class="ui segment">
+                2
+            </div>
+        </div>
+        <div class="column moved">
+            <div class="ui segment">
+                3
+            </div>
+        </div>
+        <div class="column moved">
+            <div class="ui segment">
+                4
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui segment">
+                5
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui segment">
+                6
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui segment">
+                7
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui segment">
+                8
+            </div>
+        </div>
+        <div class="column">
+            <div class="ui segment">
+                9
+            </div>
+        </div>
+        <div class="column filtered">
+            <div class="ui segment">
+                <button class="ui fluid icon button" onclick="addColumn()">
+                    <i class="cloud icon"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <h3>单文件上传</h3>
@@ -59,15 +124,49 @@ hello world
     <input type="submit" value="提交">
 </form>
 
-<script type="text/javascript" src="./static/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="./static/js/jquery-3.5.1.min.js"></script>
+<script type="text/javascript" src="./static/js/Sortable.min.js"></script>
+<script type="text/javascript" src="./static/semantic/semantic.min.js"></script>
 
-<script type="text/javascript" src="./static/semantic.min.js"></script>
+
 
 <script>
+
+/*
+    方法一:
+
+    通过配置属性完成
+
+    handle: 设置可拖拽元素的className
+
+    filter: 设置不可拖拽元素的className
+
+    dragable: 设置设置可被拖拽区域的className
+
+    方法二：
+
+    在onStart实践中通过方法toArray先记录拖拽前的顺序, onEnd若拖拽不合法可以使用sort方法重新变回拖拽前的顺序
+    */
 
     function download() {
         console.log("-------------");
         window.open("http://localhost:8080/aliyun/file/download")
+    }
+
+    var gridDemo = document.getElementById('gridDemo');
+    var sortable = new Sortable(gridDemo, {
+        filter: '.filtered', // 'filtered' class is not draggable
+        draggable:'.moved',
+        animation: 150,
+        swap: true,
+        swapClass: 'highlighted',
+        //ghostClass: 'blue-background-class'
+    });
+
+    function addColumn() {
+        console.log("----------------");
+        $(".filtered").before("<div class='column'> <div class='ui segment'>14 </div></div>");
+        console.log("--------ssss--------");
     }
 
 </script>
