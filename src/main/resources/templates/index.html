@@ -10,6 +10,14 @@
         .highlighted {
             background-color: #9AB6F1;
         }
+        .upload-input{
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            height: 100%;
+            width: 100%;
+        }
     </style>
 
 </head>
@@ -98,9 +106,16 @@
         </div>
         <div class="column filtered">
             <div class="ui segment">
-                <button class="ui fluid icon button" onclick="addColumn()">
+
+                <div class="ui massive blue label" style="position: relative" >
+                    <img class="ui right spaced avatar image" src="../images/avatar/small/elliot.jpg">
+                    选择图片
+                    <input  type="file" accept="image/png,image/gif" multiple="multiple" class="upload-input">
+                </div>
+
+                <!--<button class="ui fluid icon button" onclick="addColumn()">
                     <i class="cloud icon"></i>
-                </button>
+                </button>-->
             </div>
         </div>
     </div>
@@ -147,6 +162,15 @@
 
     在onStart实践中通过方法toArray先记录拖拽前的顺序, onEnd若拖拽不合法可以使用sort方法重新变回拖拽前的顺序
     */
+
+    // 文件改变时 将文件名称显示到p元素中
+    $('.upload-input').on('change', function(event) {
+        var fileName = '已选文件：' + event.target.files[0].name;
+
+        console.log("-------------",fileName);
+        addColumn();
+        //$('.file-name').text(fileName)
+    })
 
     function download() {
         console.log("-------------");
