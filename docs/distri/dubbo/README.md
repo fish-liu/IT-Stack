@@ -17,6 +17,7 @@ dubbo负载均衡策略 ： https://www.cnblogs.com/wyq178/p/9822731.html
 **dubbo的源码分析基于 dubbo-2.6.4 版本， 2.7.5版本改动比较大，官方的文档还没更新。**
 
 
+URL 是 Dubbo 配置的载体，通过 URL 可让 Dubbo 的各种配置在各个模块之间传递
 
 Dubbo :是一个RPC框架，SOA框架
 
