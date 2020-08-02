@@ -116,7 +116,7 @@ public class ApiResourcesController {
             @ApiImplicitParam(paramType="query", name = "type", value = "文件类型", required = true, dataType = "Integer")
     })
     @PostMapping("/multiUpload")
-    public String multiUpload(@RequestParam("files") MultipartFile[] files,
+    public String multiUpload(@RequestParam("file") MultipartFile[] files,
                               @RequestParam("uid") Integer uid,
                               @RequestParam("type") Integer type
                               ) {
@@ -137,7 +137,6 @@ public class ApiResourcesController {
 
             try {
                 file.transferTo(dest);
-
                 logger.info("第" + (i + 1) + "个文件上传成功");
 
             } catch (IOException e) {
@@ -145,7 +144,6 @@ public class ApiResourcesController {
                 return "上传第" + (i++) + "个文件失败";
             }
         }
-
         return "上传成功";
     }
 

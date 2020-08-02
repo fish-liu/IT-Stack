@@ -55,9 +55,7 @@ public class FileController {
         }
 
         String fileName = file.getOriginalFilename();
-        String filePath = "/Users/itinypocket/workspace/temp/";
-
-
+        String filePath = "E:/upload/";
 
         File dest = new File(filePath + fileName);
         try {
@@ -78,15 +76,13 @@ public class FileController {
      */
     @PostMapping("/multiUpload")
     @ResponseBody
-    public String multiUpload(HttpServletRequest request) {
+    public String multiUpload(@RequestParam("file")MultipartFile[] files,HttpServletRequest request) {
 
-        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("file");
+        String filePath = "E:/upload/";
 
-        String filePath = "/Users/itinypocket/workspace/temp/";
+        for (int i = 0; i < files.length; i++) {
 
-        for (int i = 0; i < files.size(); i++) {
-
-            MultipartFile file = files.get(i);
+            MultipartFile file = files[i];
 
             if (file.isEmpty()) {
                 return "上传第" + (i++) + "个文件失败";
@@ -99,7 +95,7 @@ public class FileController {
             try {
                 file.transferTo(dest);
 
-                logger.info("第" + (i + 1) + "个文件上传成功");
+                logger.info("第" + (i + 1) + "个文件上传成功" + fileName);
 
             } catch (IOException e) {
                 logger.error(e.toString(), e);

@@ -33,6 +33,16 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/category")
+    public String category(){
+        return "category";
+    }
+
+    @RequestMapping("/tags")
+    public String tags(){
+        return "tags";
+    }
+
     @RequestMapping("/login")
     public String login(){
         return "login";

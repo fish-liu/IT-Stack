@@ -12,5 +12,8 @@ semantic文档地址： https://zijieke.com/semantic-ui/usage/theming.php
 semantic网上的例子参考： https://blog.csdn.net/qq_46101869/article/details/107582966
 
 
+jq实现星星评价
+https://www.jianshu.com/p/02969846f1ed
+
 
 
