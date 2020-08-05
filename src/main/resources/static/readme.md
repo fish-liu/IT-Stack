@@ -16,4 +16,12 @@ jq实现星星评价
 https://www.jianshu.com/p/02969846f1ed
 
 
+Spring Boot集成thymeleaf异步刷新页面
+https://blog.csdn.net/aliasone/article/details/82261688
+
+
+thymeleaf+semantic ui分页
+https://my.oschina.net/ayyao/blog/898041
+
+
 

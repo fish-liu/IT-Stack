@@ -22,6 +22,11 @@ public class PageModel<T> {
     private Integer total;
 
     /**
+     * 总页数
+     */
+    private Integer totalPages;
+
+    /**
      * 当前第几页
      */
     private Integer current = 1;
@@ -39,6 +44,8 @@ public class PageModel<T> {
         this.list = list;
         this.total = total;
         this.current = current;
+
+        this.totalPages =  (int)Math.ceil((double)total/pageSize);
     }
 
     public PageModel(List<T> list, Integer total, Integer current, Integer pageSize){
@@ -46,6 +53,8 @@ public class PageModel<T> {
         this.total = total;
         this.current = current;
         this.pageSize = pageSize;
+
+        this.totalPages =  (int)Math.ceil((double)total/pageSize);
     }
 
     public List<T> getList() {
@@ -78,5 +87,13 @@ public class PageModel<T> {
 
     public void setPageSize(Integer pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public Integer getTotalPages() {
+        return totalPages;
+    }
+
+    public void setTotalPages(Integer totalPages) {
+        this.totalPages = totalPages;
     }
 }

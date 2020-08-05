@@ -12,11 +12,12 @@ import com.grow.demo.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
+ * 网站首页
  * @author liuxw
- * @date 2020/6/29
  * @since 1.0
  */
 @Controller
@@ -28,19 +29,28 @@ public class IndexController {
     @Autowired
     private TagService tagService;
 
-    @RequestMapping("/")
+    @RequestMapping(value = {"","/"})
     public String index(){
         return "index";
     }
 
+    /**
+     * 关于我们
+     * @return
+     */
+    @RequestMapping(value = "/about",method = RequestMethod.GET)
+    public String article(){
+        return "about";
+    }
+
     @RequestMapping("/category")
     public String category(){
-        return "category";
+        return "user/category";
     }
 
     @RequestMapping("/tags")
     public String tags(){
-        return "tags";
+        return "user/tags";
     }
 
     @RequestMapping("/login")

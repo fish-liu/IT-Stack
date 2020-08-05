@@ -20,14 +20,16 @@
 
 https://www.cnblogs.com/luoxn28/p/5686794.html
 
-### [动态代理]
+### [Java代理](java/basic/proxy.md)
 
-https://www.cnblogs.com/xiaoluo501395377/p/3383130.html
+
+
+### []
 
 
 ### [Java transient关键字](java/basic/transient.md)
 
-
+### [Java引用](java/basic/reference.md)
 
 
 

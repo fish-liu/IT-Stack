@@ -665,3 +665,12 @@ AOP(Aspect Oriented Programming)：面向切面编程，通过预编译方式和
 
 
 
+dubbo选javassist作为缺省动态代理原因
+
+https://blog.csdn.net/shaolong1013/article/details/103376300
+
+
+Dubbo（二二）：动态代理（一）之 Javassist
+https://msd.misuland.com/pd/3545776840385760682?page=1
+
+
