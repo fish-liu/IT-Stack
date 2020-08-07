@@ -24,6 +24,12 @@ https://blog.csdn.net/qq_24472237/article/details/77600471?utm_medium=distribute
 
 
 
+BeanPostProcessor 与 BeanFactoryPostProcessor
+
+InitializingBean 
+
+
+
 
 
 
