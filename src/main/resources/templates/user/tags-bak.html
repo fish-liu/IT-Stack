@@ -1,14 +1,59 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:layout="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="components/custom-layout">
 <head>
     <meta charset="UTF-8">
     <title>标签管理</title>
+
+    <style type="text/css">
+
+        .tag-list{
+            display: flex;
+            flex-wrap:wrap;
+        }
+
+        .tag-list a{
+            margin: 5px 12px !important;
+        }
+    </style>
 </head>
 <body>
 
-<div th:fragment="tags">
+<div layout:fragment="content" >
 
-    <div class="my-tags">
+    <div class="ui container">
+
+        <div class="ui grid">
+
+            <div class="four wide column">
+                <div class="ui fluid secondary vertical pointing menu">
+                    <a class="item active">
+                        主页
+                    </a>
+                    <a class="item">
+                        信息
+                    </a>
+                    <a class="item">
+                        朋友
+                    </a>
+                </div>
+            </div>
+
+            <div class="twelve wide stretched column">
+                <div class="ui segment">
+                    sdsdfds
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="ui text container">
 
         <!-- 标签可以随意删除及添加 ，公共标签再这里只做展示，不能修改-->
         <div class="ui fluid card">
@@ -53,7 +98,12 @@
         </div>
     </div>
 
+
     <script>
+
+        $(function () {
+            
+        });
 
         var tagsNum = 0;
 

@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:layout="http://www.w3.org/1999/xhtml"  xmlns:th="http://www.thymeleaf.org"
+      layout:decorator="components/custom-layout">
 <head>
     <meta charset="UTF-8">
-    <title>添加内容</title>
-
-    <link rel="stylesheet" type="text/css" href="./static/semantic/semantic.min.css" />
-
+    <title>添加文章</title>
     <style>
         .highlighted {
             background-color: #9AB6F1;
@@ -95,114 +93,114 @@
 </head>
 <body>
 
-<div th:fragment="article">
+<!-- 开始网站主题设置 -->
+<div layout:fragment="content" >
 
-    <div class="ui form">
+    <div class="ui text container" style="margin-top: 20px;margin-bottom: 100px">
 
-        <div class="field">
-            <textarea rows="3" placeholder="写你所想..."></textarea>
-        </div>
+        <div class="ui form">
 
-        <div class="ui segment">
-            <div class="ui three column grid" id="gridDemo">
-
-                <div class="column filtered">
-                    <div class="myimg">
-                        <div class="con">
-                            <img class="ui fluid image" th:src="@{/static/img/upload.png}">
-                            <input  type="file" title="" accept="image/png,image/gif,image/jpeg" multiple="multiple" class="upload-input">
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="ui segment grid">
-            <div class="center aligned four wide column">
-                <div style="padding-top: 10px">所属分类</div>
-            </div>
-            <div class="twelve wide column">
-                <select class="ui fluid search dropdown" name="card[expire-month]">
-                    <option value="">Month</option>
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                </select>
+            <div class="field">
+                <textarea rows="3" placeholder="写你所想..."></textarea>
             </div>
 
-            <div class="center aligned four wide column">
-                <div style="padding-top: 10px">标签</div>
-            </div>
-            <div class="twelve wide column">
-                <div class="ui fluid multiple search selection dropdown">
-                    <input type="hidden" name="receipt">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Saved Contacts</div>
-                    <div class="menu">
-                        <div class="item" data-value="jenny" data-text="Jenny">
-                            Jenny Hess
-                        </div>
-                        <div class="item" data-value="elliot" data-text="Elliot">
-                            Elliot Fu
-                        </div>
-                        <div class="item" data-value="stevie" data-text="Stevie">
-                            Stevie Feliciano
-                        </div>
-                        <div class="item" data-value="christian" data-text="Christian">
-                            Christian
-                        </div>
-                        <div class="item" data-value="matt" data-text="Matt">
-                            Matt
-                        </div>
-                        <div class="item" data-value="justen" data-text="Justen">
-                            Justen Kitsune
+            <div class="ui segment">
+                <div class="ui three column grid" id="gridDemo">
+                    <!-- 上传图片按钮 -->
+                    <div class="column filtered">
+                        <div class="myimg">
+                            <div class="con">
+                                <img class="ui fluid image" th:src="@{/static/img/upload.png}">
+                                <input  type="file" title="" accept="image/png,image/gif,image/jpeg" multiple="multiple" class="upload-input">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="center aligned four wide column">
-                <div style="padding-top: 10px">时间</div>
-            </div>
-            <div class="twelve wide column">
-                <input type="datetime-local">
-            </div>
+            <div class="ui segment grid">
+                <div class="center aligned four wide column">
+                    <div style="padding-top: 10px">所属分类</div>
+                </div>
+                <div class="twelve wide column">
+                    <select class="ui fluid search dropdown" name="card[expire-month]">
+                        <option value="">Month</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                        <option value="4">April</option>
+                        <option value="5">May</option>
+                        <option value="6">June</option>
+                        <option value="7">July</option>
+                    </select>
+                </div>
 
-            <div class="center aligned four wide column ">
-                <div style="padding-top: 10px">重要性</div>
-            </div>
-            <div class="twelve wide column">
-                <div class="ui segment mystar " >
-                    <i class="orange star outline icon"></i>
-                    <i class="orange star outline icon"></i>
-                    <i class="orange star outline icon"></i>
-                    <i class="orange star outline icon"></i>
-                    <i class="orange star outline icon"></i>
+                <div class="center aligned four wide column">
+                    <div style="padding-top: 10px">标签</div>
+                </div>
+                <div class="twelve wide column">
+                    <div class="ui fluid multiple search selection dropdown">
+                        <input type="hidden" name="receipt">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Saved Contacts</div>
+                        <div class="menu">
+                            <div class="item" data-value="jenny" data-text="Jenny">
+                                Jenny Hess
+                            </div>
+                            <div class="item" data-value="elliot" data-text="Elliot">
+                                Elliot Fu
+                            </div>
+                            <div class="item" data-value="stevie" data-text="Stevie">
+                                Stevie Feliciano
+                            </div>
+                            <div class="item" data-value="christian" data-text="Christian">
+                                Christian
+                            </div>
+                            <div class="item" data-value="matt" data-text="Matt">
+                                Matt
+                            </div>
+                            <div class="item" data-value="justen" data-text="Justen">
+                                Justen Kitsune
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="center aligned four wide column">
+                    <div style="padding-top: 10px">时间</div>
+                </div>
+                <div class="twelve wide column">
+                    <input type="datetime-local">
+                </div>
+
+                <div class="center aligned four wide column ">
+                    <div >重要性</div>
+                </div>
+                <div class="twelve wide column">
+                    <div class="ui mystar " >
+                        <i class="orange star outline icon"></i>
+                        <i class="orange star outline icon"></i>
+                        <i class="orange star outline icon"></i>
+                        <i class="orange star outline icon"></i>
+                        <i class="orange star outline icon"></i>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="field">
-            <div class="big ui button" onclick="saveForm()">提交</div>
-        </div>
+            <div class="field">
+                <div class="big ui button" onclick="saveForm()">提交</div>
+            </div>
 
+        </div>
     </div>
 
     <script type="text/javascript" th:src="@{/static/js/Sortable.min.js}"></script>
-
     <script>
 
-        $('select.dropdown').dropdown();
-
-        $(".selection.dropdown").dropdown();
-
-
         $(document).ready(function(){
+
+            $('select.dropdown').dropdown();
+            $(".selection.dropdown").dropdown();
 
             $(".mystar i").on('click',function () {
                 console.log("---------mystar---------",$(this).prevAll());
@@ -214,9 +212,6 @@
                 $(this).nextAll().addClass("outline");
 
                 var sta_index = $(this).index();
-
-
-
             });
 
             $('#gridDemo').on('click', '.moved .con>img', function (e) {
@@ -233,15 +228,12 @@
             });
         });
 
-
-
         /**
          * 保存form数据
          */
         function saveForm() {
             //先上传图片，后提交数据
             uploadImg();
-
         }
 
         /* 上传图片*/
@@ -277,7 +269,6 @@
                     console.log(response);
                 }
             });
-
         }
 
         // 存放
@@ -314,9 +305,6 @@
                 map.set(numIndex+"",fs[i]);
                 numIndex++;
             }
-            /*var file = event.target.files[0];
-            var url = URL.createObjectURL(file);
-            addColumn(url);*/
         });
 
         function addColumn(index,url) {
@@ -338,29 +326,6 @@
             //ghostClass: 'blue-background-class'
         });
     </script>
-
 </div>
-
-<!-- 开始网站主题设置 -->
-
-<!--<button onclick="download()"> 文件下载</button>
-
-<h3>单文件上传</h3>
-
-<form method="post" action="/file/upload" enctype="multipart/form-data">
-    <input type="file" name="file"><br>
-    <input type="submit" value="提交">
-</form>
-
-
-<h3>多文件上传</h3>
-
-<form method="post" action="/file/multiUpload" enctype="multipart/form-data">
-    <input type="file" name="file"><br>
-    <input type="file" name="file"><br>
-    <input type="file" name="file"><br>
-    <input type="submit" value="提交">
-</form>-->
-
 </body>
 </html>
