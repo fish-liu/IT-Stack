@@ -7,7 +7,7 @@
   - [Spring之FactoryBean](framework/spring/factorybean.md)
   - [Spring之Aware](framework/spring/aware.md)
   - [Spring之Bean继承](framework/spring/aware.md)
-  - [Spring之BeanPostProcessor](framework/spring/aware.md)
+  - [Spring之钩子接口](framework/spring/hook.md)
   
 - 面试题整理
 

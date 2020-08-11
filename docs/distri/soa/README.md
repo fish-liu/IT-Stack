@@ -24,4 +24,8 @@
 ![SOA](/images/soa.webp)
 
 
+秒杀系统架构分析与实战
+
+https://www.jianshu.com/p/df4fbecb1a4b
+
 
