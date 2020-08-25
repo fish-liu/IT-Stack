@@ -1,6 +1,8 @@
 
 本文转载自 ：https://www.jianshu.com/p/5efed51d1ecc
 
+https://blog.csdn.net/qq_25343557/article/details/89110319
+
 平衡二叉树
 
 -------------------
