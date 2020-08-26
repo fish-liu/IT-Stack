@@ -21,6 +21,39 @@
 <!-- 图片显示 -->
 <!--
 ![Image text](http://ww3.sinaimg.cn/large/006tNc79ly1g59ibyxlyxj30c008mwey.jpg)
+
+2020 0003 3910 117
+
+没有看完技术文章：
+
+[田守枝的博客文章](http://www.tianshouzhi.com/)
+
+[田小波博客](http://www.tianxiaobo.com/categories/)
+
+[leetcode](https://blog.csdn.net/qq_17550379/category_9275333_4.html)
+
+[leetcode](https://blog.csdn.net/slx3320612540/category_9293021.html)
+
+[朱小厮博客](https://honeypps.com/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/Kafka/page/5/)
+
+[Kafka架构和原理](https://www.cnblogs.com/jixp/p/9778937.html)
+
+
+[深入浅出NIO之Selector实现原理](https://www.jianshu.com/p/0d497fe5484a)
+
+系列博客
+https://www.jianshu.com/u/91c600a01386
+
+https://javadoop.com/
+
+有netty相关源码解读
+https://www.jianshu.com/u/7b92f5e049c1
+
+
+[Spring 揭秘之Spring IoC 容器之ApplicationContext](https://blog.csdn.net/slx3320612540/article/details/94445299)
+
+[Spring IOC原理总结](https://zhuanlan.zhihu.com/p/29344811)
+
 -->
 
 
