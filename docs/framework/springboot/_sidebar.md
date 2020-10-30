@@ -1,7 +1,7 @@
-- 知识点
+- SpringBoot
 
-  - [springboot](/java/jvm1.md)
-  - [tomcat](/java/threads.md)
+  - [启动流程](/java/jvm1.md)
+  - [命令行启动](/java/threads.md)
 
 - 面试题整理
 
