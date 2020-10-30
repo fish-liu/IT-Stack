@@ -13,6 +13,7 @@
   * [zookeeper](distri/zookeeper/)
   * [分布式锁](distri/lock/)
   * [服务治理](distri/soa/)
+  * [分布式ID](distri/unionid/)
   
 * 消息队列
   * [Kafka](mq/kafka/)
